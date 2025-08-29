@@ -70,6 +70,58 @@ namespace Joby.Utilities.SeedGenerator
         public int ZipCode => this.Next(10101, 100000);
         #endregion
 
+        #region Sights, category, description, review
+
+        public string CategoryAge => _seeds.Categories.CategoryAge[this.Next(0, _seeds.Categories.CategoryAge.Count)];
+        public string CategoryFunction => _seeds.Categories.CategoryFunction[this.Next(0, _seeds.Categories.CategoryFunction.Count)];
+        public string CategoryLocation => _seeds.Categories.CategoryLocation[this.Next(0, _seeds.Categories.CategoryLocation.Count)];
+        public string CategoryPopularity => _seeds.Categories.CategoryPopularity[this.Next(0, _seeds.Categories.CategoryPopularity.Count)];
+        public string CategoryStyle => _seeds.Categories.CategoryStyle[this.Next(0, _seeds.Categories.CategoryStyle.Count)];
+
+        public string RandomCategory()
+        {
+            // List of all categories
+            var allCategories = new List<string>
+            {
+                CategoryAge,
+                CategoryFunction,
+                CategoryLocation,
+                CategoryPopularity,
+                CategoryStyle
+            };
+
+            // Pick one randomly
+            return allCategories[this.Next(0, allCategories.Count)];
+        }
+        public string Sight(string Country = null)
+        {
+            if (!string.IsNullOrEmpty(Country))
+            {
+                var sit = _seeds.Sights.FirstOrDefault(s => s.Country.ToLower() == Country.Trim().ToLower());
+                if (sit == null)
+                    throw new ArgumentException("Country not found");
+                return $"{sit.SightsName[this.Next(0, _seeds.Sights.Count)]}";
+            }
+
+            var tmp = _seeds.Sights[this.Next(0, _seeds.Sights.Count)];
+            return $"{tmp.SightsName[this.Next(0, tmp.SightsName.Count)]} {this.Next(1, 100)}";
+        }
+        public string SightDescription(string Country = null)
+        {
+            if (!string.IsNullOrEmpty(Country))
+            {
+                var sit = _seeds.Sights.FirstOrDefault(s => s.Country.ToLower() == Country.Trim().ToLower());
+                if (sit == null)
+                    throw new ArgumentException("Country not found");
+                return $"{sit.SightsDesc[this.Next(0, _seeds.Sights.Count)]}";
+            }
+
+            var tmp = _seeds.Sights[this.Next(0, _seeds.Sights.Count)];
+            return $"{tmp.SightsDesc[this.Next(0, tmp.SightsDesc.Count)]} {this.Next(1, 100)}";
+        }
+
+        #endregion
+
         #region Emails and phones
         public string Email(string fname = null, string lname = null)
         {
@@ -329,7 +381,7 @@ namespace Joby.Utilities.SeedGenerator
             return retList;
         }
         #endregion
- 
+
         #region initialize master content
         SeedJsonContent CreateMasterSeedFile()
         {
@@ -569,8 +621,8 @@ namespace Joby.Utilities.SeedGenerator
                 },
                 Names = new SeedNames
                 {
-                    jsonFirstNames = "Harry, Lord, Hermione, Albus, Severus, Ron, Draco, Frodo, Gandalf, Sam, Peregrin, Saruman",
-                    jsonLastNames = "Potter, Voldemort, Granger, Dumbledore, Snape, Malfoy, Baggins, the Gray, Gamgee, Took, the White",
+                    jsonFirstNames = "Harry, Lord, Hermione, Albus, Severus, Ron, Draco, Frodo, Gandalf, Sam, Peregrin, Saruman, Johan, Erik, Bertil",
+                    jsonLastNames = "Potter, Voldemort, Granger, Dumbledore, Snape, Malfoy, Baggins, the Gray, Gamgee, Took, the White, Bylander, Maars, Johansson, Raisen, Lindberg",
                     jsonPetNames = "Max, Charlie, Cooper, Milo, Rocky, Wanda, Teddy, Duke, Leo, Max, Simba",
                 },
                 Domains = new SeedDomains
@@ -585,6 +637,44 @@ namespace Joby.Utilities.SeedGenerator
                         "Satisfaction, California, Stairway, Purple, Senor",
                     jsonAlbumPrefix = "A, The, One, The great, A wonderful, Let's rock with, Relaxing, Chill with, Dance with",
                     jsonAlbumSuffix = "with friends, with love, with fire, and walking, being happy",
+                },
+
+                //joby
+                Sights = new List<SeedSight>
+                {
+                    new SeedSight{
+                        jsonCountry = "Sweden",
+                        jsonSights = "Vasa Museum, Skansen, Gamla Stan, Drottningholm Palace, Abisko National Park",
+                        jsonSightsDesc = "Famous 17th century ship.||Open-air museum with Swedish history.|Historic old town in Stockholm.||Royal palace with beautiful gardens.||Northern lights and stunning nature in Lapland."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Norway",
+                        jsonSights = "Fjord Cruises, Oslo Opera House, Geirangerfjord, Bryggen, Vigeland Park",
+                        jsonSightsDesc = "Scenic cruises through fjords.||Modern architectural landmark.|World-famous fjord with waterfalls.||Historic wharf in Bergen.||Sculpture park with hundreds of statues."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Denmark",
+                        jsonSights = "Tivoli Gardens, Nyhavn, The Little Mermaid, Rosenborg Castle, Legoland",
+                        jsonSightsDesc = "Famous amusement park in Copenhagen.||Picturesque waterfront area.||Iconic bronze statue of a mermaid.||Renaissance castle with royal history.||Popular theme park for families."
+
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Finland",
+                        jsonSights = "Suomenlinna, Helsinki Cathedral, Santa Claus Village, Olavinlinna, Koli National Park",
+                        jsonSightsDesc = "Historic sea fortress near Helsinki.||Majestic neoclassical cathedral.||Magical village dedicated to Santa Claus.||Medieval castle on an island.||Stunning national park with hills and lakes."
+
+                    }
+                },
+                Categories = new SeedCategory
+                {
+                    jsonCategoryAge = "Ancient, 15th century, 17th century, 18th century, 19th century, 20th century, Modern, New, Old",
+                    jsonCategoryLocation = "Indoor, Outdoor, Urban, Rural, Coastal, Mountain, Forest, City Center, Suburban",
+                    jsonCategoryFunction = "Historical, Cultural, Entertainment, Religious, Commercial, Natural, Educational, Tourist Attraction",
+                    jsonCategoryStyle = "Grand, Quirky, Romantic, Scenic, Modern, Classic, Rustic, Luxurious, Fun",
+                    jsonCategoryPopularity = "High, Medium, Low, Very Popular, Hidden Gem, Local Favorite"
                 }
             };
         }
@@ -666,7 +756,7 @@ namespace Joby.Utilities.SeedGenerator
         {
             #region Country towards json file
             string _jsonCountry;
-            public string jsonCountry { get => _jsonCountry; set { _jsonCountry = value; }}
+            public string jsonCountry { get => _jsonCountry; set { _jsonCountry = value; } }
             #endregion
 
             [JsonIgnore]
@@ -839,6 +929,148 @@ namespace Joby.Utilities.SeedGenerator
             public List<string> AlbumSuffix => _albumSuffix;
         }
 
+        //joby
+        class SeedSight
+        {
+            #region Country towards JSON file
+            string _jsonCountry;
+            public string jsonCountry
+            {
+                get => _jsonCountry;
+                set => _jsonCountry = value;
+            }
+
+
+            [JsonIgnore]
+            public string Country => _jsonCountry;
+            #endregion
+
+
+            #region Sights towards JSON file
+            string _jsonSights;
+            public string jsonSights
+            {
+                get => _jsonSights;
+                set
+                {
+                    _jsonSights = value;
+                    _sights = _jsonSights.Split(", ").ToList();
+                }
+            }
+            List<string> _sights;
+            [JsonIgnore]
+            public List<string> SightsName => _sights;
+            #endregion
+
+
+            #region Sights towards JSON file
+            string _jsonSightsDesc;
+            public string jsonSightsDesc
+            {
+                get => _jsonSightsDesc;
+                set
+                {
+                    _jsonSightsDesc = value;
+                    _sightsDesc = _jsonSightsDesc.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _sightsDesc;
+            [JsonIgnore]
+            public List<string> SightsDesc => _sightsDesc;
+            #endregion
+        }
+        class SeedCategory
+        {
+
+            #region CategoryAge 
+            string _jsonCategoryAge;
+            public string jsonCategoryAge
+            {
+                get => _jsonCategoryAge;
+                set
+                {
+                    _jsonCategoryAge = value;
+                    _CategoryAge = _jsonCategoryAge.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _CategoryAge;
+            [JsonIgnore]
+            public List<string> CategoryAge => _CategoryAge;
+            #endregion
+            #region jsonCategoryLocation 
+            string _jsonCategoryLocation;
+            public string jsonCategoryLocation
+            {
+                get => _jsonCategoryAge;
+                set
+                {
+                    _jsonCategoryLocation = value;
+                    _CategoryLocation = _jsonCategoryLocation.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _CategoryLocation;
+            [JsonIgnore]
+            public List<string> CategoryLocation => _CategoryLocation;
+            #endregion
+            #region jsonCategoryFunction 
+            string _jsonCategoryFunction;
+            public string jsonCategoryFunction
+            {
+                get => _jsonCategoryAge;
+                set
+                {
+                    _jsonCategoryFunction = value;
+                    _CategoryFunction = _jsonCategoryFunction.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _CategoryFunction;
+            [JsonIgnore]
+            public List<string> CategoryFunction => _CategoryFunction;
+            #endregion
+            #region jsonCategoryStyle 
+            string _jsonCategoryStyle;
+            public string jsonCategoryStyle
+            {
+                get => _jsonCategoryStyle;
+                set
+                {
+                    _jsonCategoryStyle = value;
+                    _CategoryStyle = _jsonCategoryStyle.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _CategoryStyle;
+            [JsonIgnore]
+            public List<string> CategoryStyle => _CategoryStyle;
+            #endregion
+            #region jsonCategoryPopularity 
+            string _jsonCategoryPopularity;
+            public string jsonCategoryPopularity
+            {
+                get => _jsonCategoryStyle;
+                set
+                {
+                    _jsonCategoryPopularity = value;
+                    _CategoryPopularity = _jsonCategoryPopularity.Split("||").ToList();
+                }
+            }
+
+
+            List<string> _CategoryPopularity;
+            [JsonIgnore]
+            public List<string> CategoryPopularity => _CategoryPopularity;
+            #endregion
+        }
+
         class SeedJsonContent
         {
             public List<SeedQuote> Quotes { get; set; } = new List<SeedQuote>();
@@ -847,6 +1079,11 @@ namespace Joby.Utilities.SeedGenerator
             public SeedNames Names { get; set; } = new SeedNames();
             public SeedDomains Domains { get; set; } = new SeedDomains();
             public SeedMusic Music { get; set; } = new SeedMusic();
+
+            //joby
+            public List<SeedSight> Sights { get; set; } = new List<SeedSight>();
+            public SeedCategory Categories { get; set; } = new SeedCategory();
+
 
 
             public string WriteFile(string FileName) => WriteFile(this, FileName);
@@ -881,19 +1118,20 @@ namespace Joby.Utilities.SeedGenerator
                 return Path.Combine(documentPath, name);
             }
 
-            public static bool FileExists(string FileName){
+            public static bool FileExists(string FileName)
+            {
 
                 var fn = Path.GetFileName(FileName);
                 if (fn == FileName)
                 {
                     //no path in FileName use default directory
-                   return File.Exists(fname(FileName));
+                    return File.Exists(fname(FileName));
                 }
-    
+
                 return File.Exists(FileName);
             }
         }
-    #endregion
+        #endregion
     }
 }
 
