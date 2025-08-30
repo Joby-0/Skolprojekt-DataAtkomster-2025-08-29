@@ -72,25 +72,39 @@ namespace Joby.Utilities.SeedGenerator
 
 
         //joby
-        #region Sights, category, description, review
+        #region Sights, category, description, review, comment
+
+
+        public string ShortComment => _seeds.Comments.shortComment[this.Next(0, _seeds.Comments.shortComment.Count)];
+        public string LongComment => _seeds.Comments.LongComment[this.Next(0, _seeds.Comments.LongComment.Count)];
+        public string RandomComment() {
+            // List of all comments
+            var allComments = new List<string>
+            {
+                LongComment,
+                ShortComment
+            };
+
+            // Pick one randomly
+            return allComments[this.Next(0, allComments.Count)];
+        }
 
         public string CategoryAge => _seeds.Categories.CategoryAge[this.Next(0, _seeds.Categories.CategoryAge.Count)];
         public string CategoryFunction => _seeds.Categories.CategoryFunction[this.Next(0, _seeds.Categories.CategoryFunction.Count)];
         public string CategoryLocation => _seeds.Categories.CategoryLocation[this.Next(0, _seeds.Categories.CategoryLocation.Count)];
         public string CategoryPopularity => _seeds.Categories.CategoryPopularity[this.Next(0, _seeds.Categories.CategoryPopularity.Count)];
         public string CategoryStyle => _seeds.Categories.CategoryStyle[this.Next(0, _seeds.Categories.CategoryStyle.Count)];
-
         public string RandomCategory()
         {
             // List of all categories
             var allCategories = new List<string>
-    {
-        CategoryAge,
-        CategoryFunction,
-        CategoryLocation,
-        CategoryPopularity,
-        CategoryStyle
-    };
+            {
+                CategoryAge,
+                CategoryFunction,
+                CategoryLocation,
+                CategoryPopularity,
+                CategoryStyle
+            };
 
             // Pick one randomly
             return allCategories[this.Next(0, allCategories.Count)];
@@ -678,7 +692,13 @@ namespace Joby.Utilities.SeedGenerator
                     jsonCategoryFunction = "Historical, Cultural, Entertainment, Religious, Commercial, Natural, Educational, Tourist Attraction",
                     jsonCategoryStyle = "Grand, Quirky, Romantic, Scenic, Modern, Classic, Rustic, Luxurious, Fun",
                     jsonCategoryPopularity = "High, Medium, Low, Very Popular, Hidden Gem, Local Favorite"
+                },
+                Comments = new SeedComment
+                {
+                    jsonShortComment = "Good, Bad, Never go, Fantastic, Wow!, Amazing, Terrible, Lovely, Boring, Exciting, Meh, Great experience, Not worth it, Highly recommend, Disappointing, Incredible, Okay, Fun, Overrated, Underrated",
+                    jsonLongComment = "This place was absolutely wonderful, I would definitely visit again!, The trip was okay but not as great as I expected., A must-see destination for anyone visiting the area!, Honestly, I wouldn’t recommend this place, it was a waste of time., Stunning views and a very unique atmosphere, we loved every moment., Too crowded and overpriced, not worth the hype., Such a hidden gem, I’m glad we decided to stop by!, It was an average experience, nothing really special stood out., Perfect for a family trip, the kids loved it!, Beautiful and peaceful, I could stay here all day."
                 }
+
             };
         }
         #endregion
@@ -1073,6 +1093,40 @@ namespace Joby.Utilities.SeedGenerator
             public List<string> CategoryPopularity => _CategoryPopularity;
             #endregion
         }
+        class SeedComment
+        {
+
+            #region Short comment
+            string _jsonShortComment;
+            public string jsonShortComment
+            {
+                get => _jsonShortComment;
+                set
+                {
+                    _jsonShortComment = value;
+                    _shortComment = _jsonShortComment.Split(", ").ToList();
+                }
+            }
+            List<string> _shortComment;
+            [JsonIgnore]
+            public List<string> shortComment => _shortComment;
+            #endregion
+            #region long comment
+            string _jsonLongComment;
+            public string jsonLongComment
+            {
+                get => _jsonLongComment;
+                set
+                {
+                    _jsonLongComment = value;
+                    _LongComment = _jsonLongComment.Split(", ").ToList();
+                }
+            }
+            List<string> _LongComment;
+            [JsonIgnore]
+            public List<string> LongComment => _LongComment;
+            #endregion
+        }
 
         class SeedJsonContent
         {
@@ -1086,8 +1140,7 @@ namespace Joby.Utilities.SeedGenerator
             //joby
             public List<SeedSight> Sights { get; set; } = new List<SeedSight>();
             public SeedCategory Categories { get; set; } = new SeedCategory();
-
-
+            public SeedComment Comments { get; set; } = new SeedComment();
 
             public string WriteFile(string FileName) => WriteFile(this, FileName);
             public static string WriteFile(SeedJsonContent Seeds, string FileName)
