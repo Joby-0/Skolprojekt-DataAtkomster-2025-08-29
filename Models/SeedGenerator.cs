@@ -70,6 +70,8 @@ namespace Joby.Utilities.SeedGenerator
         public int ZipCode => this.Next(10101, 100000);
         #endregion
 
+
+        //joby
         #region Sights, category, description, review
 
         public string CategoryAge => _seeds.Categories.CategoryAge[this.Next(0, _seeds.Categories.CategoryAge.Count)];
@@ -82,13 +84,13 @@ namespace Joby.Utilities.SeedGenerator
         {
             // List of all categories
             var allCategories = new List<string>
-            {
-                CategoryAge,
-                CategoryFunction,
-                CategoryLocation,
-                CategoryPopularity,
-                CategoryStyle
-            };
+    {
+        CategoryAge,
+        CategoryFunction,
+        CategoryLocation,
+        CategoryPopularity,
+        CategoryStyle
+    };
 
             // Pick one randomly
             return allCategories[this.Next(0, allCategories.Count)];
@@ -121,6 +123,7 @@ namespace Joby.Utilities.SeedGenerator
         }
 
         #endregion
+
 
         #region Emails and phones
         public string Email(string fname = null, string lname = null)
@@ -992,7 +995,7 @@ namespace Joby.Utilities.SeedGenerator
                 set
                 {
                     _jsonCategoryAge = value;
-                    _CategoryAge = _jsonCategoryAge.Split("||").ToList();
+                    _CategoryAge = _jsonCategoryAge.Split(", ").ToList();
                 }
             }
 
@@ -1009,7 +1012,7 @@ namespace Joby.Utilities.SeedGenerator
                 set
                 {
                     _jsonCategoryLocation = value;
-                    _CategoryLocation = _jsonCategoryLocation.Split("||").ToList();
+                    _CategoryLocation = _jsonCategoryLocation.Split(", ").ToList();
                 }
             }
 
@@ -1026,7 +1029,7 @@ namespace Joby.Utilities.SeedGenerator
                 set
                 {
                     _jsonCategoryFunction = value;
-                    _CategoryFunction = _jsonCategoryFunction.Split("||").ToList();
+                    _CategoryFunction = _jsonCategoryFunction.Split(", ").ToList();
                 }
             }
 
@@ -1043,7 +1046,7 @@ namespace Joby.Utilities.SeedGenerator
                 set
                 {
                     _jsonCategoryStyle = value;
-                    _CategoryStyle = _jsonCategoryStyle.Split("||").ToList();
+                    _CategoryStyle = _jsonCategoryStyle.Split(", ").ToList();
                 }
             }
 
@@ -1060,7 +1063,7 @@ namespace Joby.Utilities.SeedGenerator
                 set
                 {
                     _jsonCategoryPopularity = value;
-                    _CategoryPopularity = _jsonCategoryPopularity.Split("||").ToList();
+                    _CategoryPopularity = _jsonCategoryPopularity.Split(", ").ToList();
                 }
             }
 
