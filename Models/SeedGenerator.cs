@@ -662,13 +662,13 @@ namespace Joby.Utilities.SeedGenerator
                     new SeedSight{
                         jsonCountry = "Sweden",
                         jsonSights = "Vasa Museum, Skansen, Gamla Stan, Drottningholm Palace, Abisko National Park",
-                        jsonSightsDesc = "Famous 17th century ship.||Open-air museum with Swedish history.|Historic old town in Stockholm.||Royal palace with beautiful gardens.||Northern lights and stunning nature in Lapland."
+                        jsonSightsDesc = "Famous 17th century ship.||Open-air museum with Swedish history.||Historic old town in Stockholm.||Royal palace with beautiful gardens.||Northern lights and stunning nature in Lapland."
                     },
                     new SeedSight
                     {
                         jsonCountry = "Norway",
                         jsonSights = "Fjord Cruises, Oslo Opera House, Geirangerfjord, Bryggen, Vigeland Park",
-                        jsonSightsDesc = "Scenic cruises through fjords.||Modern architectural landmark.|World-famous fjord with waterfalls.||Historic wharf in Bergen.||Sculpture park with hundreds of statues."
+                        jsonSightsDesc = "Scenic cruises through fjords.||Modern architectural landmark.||World-famous fjord with waterfalls.||Historic wharf in Bergen.||Sculpture park with hundreds of statues."
                     },
                     new SeedSight
                     {
