@@ -16,3 +16,4 @@ Write-Host "`n=== Installed Runtimes ===" -ForegroundColor Yellow
 dotnet --list-runtimes
 
 Write-Host "`n.NET information gathering complete!" -ForegroundColor Green
+
