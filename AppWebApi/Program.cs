@@ -72,7 +72,7 @@ builder.Services.AddSwaggerGen(c =>
 //Inject DbRepos and Services
 builder.Services.AddScoped<SightDbRepos>();
 
-builder.Services.AddScoped<ISightService, SightService>();
+builder.Services.AddScoped<ISightService, SightServiceDb>();
 
 var app = builder.Build();
 

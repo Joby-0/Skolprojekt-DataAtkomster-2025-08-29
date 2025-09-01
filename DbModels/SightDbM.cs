@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Joby.Utilities.SeedGenerator;
 using Models;
 
@@ -8,6 +9,14 @@ public class SightDbM : Sight, ISeed<SightDbM>
 {
     [Key]
     public override Guid SightId { get; set; }
+    public override string SightName { get ; set; }
+
+    [NotMapped]
+    public override IAddress Address { get; set; }
+
+    [NotMapped]
+    public override List<ICategory> Categories { get; set; }
+   
 
     SightDbM ISeed<SightDbM>.Seed(SeedGenerator seedGenerator)
     {
