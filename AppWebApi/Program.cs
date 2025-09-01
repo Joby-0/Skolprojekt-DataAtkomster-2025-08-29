@@ -4,6 +4,7 @@ using DbContext;
 using DbRepos;
 using Services;
 using Microsoft.EntityFrameworkCore;
+using DbModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,9 +70,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 //Inject DbRepos and Services
-builder.Services.AddScoped<AdminDbRepos>();
+builder.Services.AddScoped<SightDbRepos>();
 
-builder.Services.AddScoped<IAdminService, AdminServiceDb>();
+builder.Services.AddScoped<ISightService, SightService>();
 
 var app = builder.Build();
 

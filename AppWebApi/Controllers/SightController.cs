@@ -10,12 +10,12 @@ using Services;
 public class SightController : Controller
 {
     private readonly ILogger<SightController> _logger;
-    readonly IAdminService _service;
+    readonly ISightService _service;
 
     private readonly SeedGenerator _seeder = new SeedGenerator();
     // private readonly ISightService sightService;
 
-    public SightController(ILogger<SightController> logger, IAdminService service)
+    public SightController(ILogger<SightController> logger, ISightService service)
     {
         _logger = logger;
         _service = service;
