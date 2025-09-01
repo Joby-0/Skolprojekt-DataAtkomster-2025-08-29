@@ -3,38 +3,43 @@ namespace AppWebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Joby.Utilities.SeedGenerator;
 using Models;
-using Service;
+using Services;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
 public class SightController : Controller
 {
     private readonly ILogger<SightController> _logger;
-    private readonly SeedGenerator _seeder = new SeedGenerator();
-    private readonly ISightService sightService;
+    readonly IAdminService _service;
 
-    public SightController(ILogger<SightController> logger)
+    private readonly SeedGenerator _seeder = new SeedGenerator();
+    // private readonly ISightService sightService;
+
+    public SightController(ILogger<SightController> logger, IAdminService service)
     {
         _logger = logger;
+        _service = service;
 
     }
 
     [HttpGet()]
     [ActionName("AllSights")]
     [ProducesResponseType(200)]
-    public IActionResult AllSights()
-    {
-        try
+    public async Task<IActionResult> SeedSights()
         {
-            var Sights = _seeder.ItemsToList<Sight>(10);
-            return Ok(Sights);
+            try
+            {
+                _logger.LogInformation($"{nameof(SeedSights)}");
+                await _service.SeedAsync();
+
+                return Ok("Seeding completed successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
+                return BadRequest(ex.Message);
+            }
         }
-        catch (Exception ex)
-        {
-            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
-            return BadRequest(ex.Message);
-        }
-    }
 
     [HttpGet()]
     [ActionName("Sightsnoreview")]
@@ -57,11 +62,10 @@ public class SightController : Controller
     [HttpGet()]
     [ActionName("Sight")]
     [ProducesResponseType(200)]
-    public IActionResult Sight()
+    public IActionResult Sight(string SightId)
     {
         try
         {
-
             return Ok(new SeedGenerator().RandomCategory());
         }
         catch (Exception ex)

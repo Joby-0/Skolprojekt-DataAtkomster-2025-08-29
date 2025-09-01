@@ -1,9 +1,9 @@
-// using Configuration;
-// using Configuration.Options;
-// using DbContext;
-// using DbRepos;
-// using Services;
-// using Microsoft.EntityFrameworkCore;
+using Configuration;
+using Configuration.Options;
+using DbContext;
+using DbRepos;
+using Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,37 +19,38 @@ builder.Configuration.SetBasePath(Path.Combine(currentDir, "../AppWebApi"))
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .AddUserSecrets(assembly);
 
-// // adding options patterns to read appsettings and user secrets
-// builder.Services.Configure<AesEncryptionOptions>(
-//     options => builder.Configuration.GetSection(AesEncryptionOptions.Position).Bind(options));
+// adding options patterns to read appsettings and user secrets
+builder.Services.Configure<AesEncryptionOptions>(
+    options => builder.Configuration.GetSection(AesEncryptionOptions.Position).Bind(options));
 
-// builder.Services.Configure<JwtOptions>(
-//     options => builder.Configuration.GetSection(JwtOptions.Position).Bind(options));
+builder.Services.Configure<JwtOptions>(
+    options => builder.Configuration.GetSection(JwtOptions.Position).Bind(options));
 
-// // adding options and service for multiple Database connections and their respective DbContexts
-// builder.Services.Configure<DbConnectionSetsOptions>(
-//     options => builder.Configuration.GetSection(DbConnectionSetsOptions.Position).Bind(options));
+// adding options and service for multiple Database connections and their respective DbContexts
+builder.Services.Configure<DbConnectionSetsOptions>(
+    options => builder.Configuration.GetSection(DbConnectionSetsOptions.Position).Bind(options));
 
-// // adding verion info
-// builder.Services.Configure<VersionOptions>(options =>VersionOptions.ReadFromAssembly(options));
+// adding verion info
+builder.Services.Configure<VersionOptions>(options =>VersionOptions.ReadFromAssembly(options));
 
 // // Registering database connections service
-// builder.Services.AddSingleton<DatabaseConnections>();
-// // adding DbContexts
-// builder.Services.AddDbContext<MainDbContext>((serviceProvider, options) => 
-// { 
-//     var configuration = serviceProvider.GetRequiredService<IConfiguration>(); 
+builder.Services.AddSingleton<DatabaseConnections>();
+// adding DbContexts
+builder.Services.AddDbContext<MainDbContext>((serviceProvider, options) => 
+{ 
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>(); 
 
-//     // var connectionString = configuration.GetConnectionString("SqlServerDocker");
-//     // options.UseSqlServer(connectionString, options => options.EnableRetryOnFailure());
+    var connectionString = configuration.GetConnectionString("SqlServerDocker");
+    options.UseSqlServer(connectionString, options => options.EnableRetryOnFailure());
 
-//     // var connectionString = configuration.GetConnectionString("MySqlDocker");
-//     // options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-//     //     b => b.SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate, (schema, table) => $"{schema}_{table}"));
+    
+    // var connectionString = configuration.GetConnectionString("MySqlDocker");
+    // options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+    //     b => b.SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate, (schema, table) => $"{schema}_{table}"));
 
-//     var connectionString = configuration.GetConnectionString("PostgreSqlDocker");
-//     options.UseNpgsql(connectionString);
-// });
+    // var connectionString = configuration.GetConnectionString("PostgreSqlDocker");
+    // options.UseNpgsql(connectionString);
+});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -67,6 +68,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+//Inject DbRepos and Services
+builder.Services.AddScoped<AdminDbRepos>();
+
+builder.Services.AddScoped<IAdminService, AdminServiceDb>();
 
 var app = builder.Build();
 

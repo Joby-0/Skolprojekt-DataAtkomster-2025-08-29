@@ -7,11 +7,11 @@ public interface ISight
     public string SightName { get; set; }
     public string Description { get; set; }
 
-    public IAddress Address { get; set; }
+    public Address Address { get; set; }
 
     //man kankse kan göra så här
     
-    public List<ICategory> Categories { get; set; }
+    public List<Category> Categories { get; set; }
 
     
 }

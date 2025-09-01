@@ -6,6 +6,6 @@ public interface IAddress
     public string Street { get; set; }
     public int ZipCode { get; set; }
 
-    public ICity City { get; set; }
+    public City City { get; set; }
     
 }
