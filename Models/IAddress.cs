@@ -7,4 +7,5 @@ public interface IAddress
     public int ZipCode { get; set; }
 
     public ICity City { get; set; }
+    
 }

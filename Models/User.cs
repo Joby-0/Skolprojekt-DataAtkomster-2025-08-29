@@ -5,11 +5,11 @@ using Joby.Utilities.SeedGenerator;
 
 public class User : IUser, ISeed<User>
 {
-    public Guid UserId { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-    public bool Seeded { get; set; }
+    public virtual Guid UserId { get; set; }
+    public virtual string FirstName { get; set; }
+    public virtual string LastName { get; set; }
+    public virtual string Email { get; set; }
+    public virtual bool Seeded { get; set; }
 
     public User Seed(SeedGenerator seedGenerator)
     {

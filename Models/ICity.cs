@@ -7,4 +7,5 @@ public interface ICity
     public string CityName { get; set; }
 
     public ICountry Country { get; set; }
+    
 }

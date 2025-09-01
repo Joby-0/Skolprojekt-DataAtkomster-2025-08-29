@@ -4,8 +4,8 @@ namespace Models;
 
 public class Country : ICountry, ISeed<Country>
 {
-    public Guid CountryId { get; set; }
-    public string CountryName { get; set; }
+    public virtual Guid CountryId { get; set; }
+    public virtual string CountryName { get; set; }
 
 
     public bool Seeded { get; set ; }

@@ -5,11 +5,13 @@ using Joby.Utilities.SeedGenerator;
 
 public class Sight : ISight, ISeed<Sight>
 {
-    public Guid SightId { get; set; }
-    public string SightName { get; set; }
-    public string Description { get; set; }
-    public IAddress Address { get; set; }
-    public ICategory Category { get; set; }
+    public virtual Guid SightId { get; set; }
+    public virtual string SightName { get; set; }
+    public virtual string Description { get; set; }
+    public virtual IAddress Address { get; set; } = null;
+
+    //en sight kan ha flera categories eller ingen
+    public virtual List<ICategory> Categories { get; set; } = null;
     public bool Seeded { get; set; }
 
     public Sight Seed(SeedGenerator seedGenerator)

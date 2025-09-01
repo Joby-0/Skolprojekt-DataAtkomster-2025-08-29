@@ -5,10 +5,10 @@ using Joby.Utilities.SeedGenerator;
 
 public class Address : IAddress, ISeed<Address>
 {
-    public Guid AddressId { get; set; }
-    public string Street { get; set; }
-    public int ZipCode { get; set; }
-    public ICity City { get; set; }
+    public virtual Guid AddressId { get; set; }
+    public virtual string Street { get; set; }
+    public virtual int ZipCode { get; set; }
+    public virtual ICity City { get; set; }
     public bool Seeded { get; set; }
 
     public Address Seed(SeedGenerator seedGenerator)

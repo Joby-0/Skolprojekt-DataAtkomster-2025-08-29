@@ -8,4 +8,5 @@ public interface IReview
     public DateTime Created_at { get; set; }
     public ISight Sight { get; set; }
     public IUser User { get; set; }
+    
 }

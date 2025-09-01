@@ -10,7 +10,8 @@ public interface ISight
     public IAddress Address { get; set; }
 
     //man kankse kan göra så här
-    public ICategory Category { get; set; }
+    
+    public List<ICategory> Categories { get; set; }
 
     
 }

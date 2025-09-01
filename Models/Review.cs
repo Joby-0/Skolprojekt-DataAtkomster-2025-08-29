@@ -5,12 +5,12 @@ using Joby.Utilities.SeedGenerator;
 
 public class Review : IReview, ISeed<Review>
 {
-    public Guid ReviewId { get; set; }
-    public int Rating { get; set; }
-    public string Comment { get; set; }
-    public DateTime Created_at { get; set; }
-    public ISight Sight { get; set; }
-    public IUser User { get; set; }
+    public virtual Guid ReviewId { get; set; }
+    public virtual int Rating { get; set; }
+    public virtual string Comment { get; set; } = null;
+    public virtual DateTime Created_at { get; set; }
+    public virtual ISight Sight { get; set; }
+    public virtual IUser User { get; set; }
     public bool Seeded { get; set; }
 
     public Review Seed(SeedGenerator seedGenerator)
