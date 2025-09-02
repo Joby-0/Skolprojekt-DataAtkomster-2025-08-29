@@ -26,20 +26,20 @@ public class SightController : Controller
     [ActionName("AllSights")]
     [ProducesResponseType(200)]
     public async Task<IActionResult> SeedSights()
+    {
+        try
         {
-            try
-            {
-                _logger.LogInformation($"{nameof(SeedSights)}");
-                await _service.SeedAsync();
+            _logger.LogInformation($"{nameof(SeedSights)}");
+            await _service.SeedAsync();
 
-                return Ok("Seeding completed successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
-                return BadRequest(ex.Message);
-            }
+            return Ok("Seeding completed successfully");
         }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpGet()]
     [ActionName("Sightsnoreview")]
@@ -74,4 +74,22 @@ public class SightController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+
+    [HttpDelete("{SightId}")]
+    [ActionName("RemoveSight")]
+    [ProducesResponseType(200)]
+    public IActionResult RemoveSight(string SightId)
+    {
+        try
+        {
+            return Ok(new SeedGenerator().Sight());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
 }
