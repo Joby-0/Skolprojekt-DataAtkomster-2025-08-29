@@ -77,7 +77,8 @@ namespace Joby.Utilities.SeedGenerator
 
         public string ShortComment => _seeds.Comments.shortComment[this.Next(0, _seeds.Comments.shortComment.Count)];
         public string LongComment => _seeds.Comments.LongComment[this.Next(0, _seeds.Comments.LongComment.Count)];
-        public string RandomComment() {
+        public string RandomComment()
+        {
             // List of all comments
             var allComments = new List<string>
             {
@@ -683,6 +684,48 @@ namespace Joby.Utilities.SeedGenerator
                         jsonSights = "Suomenlinna, Helsinki Cathedral, Santa Claus Village, Olavinlinna, Koli National Park",
                         jsonSightsDesc = "Historic sea fortress near Helsinki.||Majestic neoclassical cathedral.||Magical village dedicated to Santa Claus.||Medieval castle on an island.||Stunning national park with hills and lakes."
 
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "France",
+                        jsonSights = "Eiffel Tower, Louvre Museum, Mont Saint-Michel, Palace of Versailles, French Riviera",
+                        jsonSightsDesc = "Iconic Parisian landmark.||World's largest art museum.||Medieval abbey on an island.||Extravagant royal palace and gardens.||Sunny beaches and luxury resorts."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Japan",
+                        jsonSights = "Mount Fuji, Fushimi Inari Shrine, Tokyo Tower, Kyoto Bamboo Grove, Hiroshima Peace Memorial",
+                        jsonSightsDesc = "Sacred mountain and hiking spot.||Thousands of red torii gates.||Modern observation tower in Tokyo.||Scenic bamboo forest walk.||Memorial to WWII peace."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "USA",
+                        jsonSights = "Statue of Liberty, Grand Canyon, Yellowstone National Park, Times Square, Golden Gate Bridge",
+                        jsonSightsDesc = "Symbol of freedom in New York.||Massive natural canyon with stunning views.||Geysers and wildlife in the first US national park.||Bright lights and energy of NYC.||Iconic red suspension bridge in San Francisco."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Egypt",
+                        jsonSights = "Pyramids of Giza, Sphinx, Valley of the Kings, Nile River Cruise, Abu Simbel Temples",
+                        jsonSightsDesc = "Ancient wonders of the world.||Mythical guardian statue.||Pharaohs' burial tombs.||Cruising along the lifeline of Egypt.||Massive temples carved in rock."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Brazil",
+                        jsonSights = "Christ the Redeemer, Sugarloaf Mountain, Amazon Rainforest, Copacabana Beach, Iguazu Falls",
+                        jsonSightsDesc = "Famous statue overlooking Rio.||Granite peak with cable car views.||World's largest rainforest.||Lively beach with samba vibes.||Massive waterfalls at the border."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Italy",
+                        jsonSights = "Colosseum, Venice Canals, Leaning Tower of Pisa, Amalfi Coast, Florence Duomo",
+                        jsonSightsDesc = "Ancient Roman amphitheater.||Romantic gondola rides.||Famous leaning landmark.||Cliffside villages and sea views.||Iconic cathedral with Renaissance art."
+                    },
+                    new SeedSight
+                    {
+                        jsonCountry = "Australia",
+                        jsonSights = "Sydney Opera House, Great Barrier Reef, Uluru, Bondi Beach, Blue Mountains",
+                        jsonSightsDesc = "World-famous performance venue.||Coral reef teeming with life.||Sacred red rock monolith.||Popular surfing destination.||Scenic national park near Sydney."
                     }
                 },
                 Categories = new SeedCategory
@@ -695,9 +738,11 @@ namespace Joby.Utilities.SeedGenerator
                 },
                 Comments = new SeedComment
                 {
-                    jsonShortComment = "Good, Bad, Never go, Fantastic, Wow!, Amazing, Terrible, Lovely, Boring, Exciting, Meh, Great experience, Not worth it, Highly recommend, Disappointing, Incredible, Okay, Fun, Overrated, Underrated",
-                    jsonLongComment = "This place was absolutely wonderful, I would definitely visit again!, The trip was okay but not as great as I expected., A must-see destination for anyone visiting the area!, Honestly, I wouldn’t recommend this place, it was a waste of time., Stunning views and a very unique atmosphere, we loved every moment., Too crowded and overpriced, not worth the hype., Such a hidden gem, I’m glad we decided to stop by!, It was an average experience, nothing really special stood out., Perfect for a family trip, the kids loved it!, Beautiful and peaceful, I could stay here all day."
+                    jsonShortComment = "Good, Bad, Never go, Fantastic, Wow!, Amazing, Terrible, Lovely, Boring, Exciting, Meh, Great experience, Not worth it, Highly recommend, Disappointing, Incredible, Okay, Fun, Overrated, Underrated, Stunning, Average, Beautiful, Horrible, Peaceful, Chaotic, Must-see, Forgettable, Magical, Unique, Scenic, Crowded, Relaxing, Inspiring, Unpleasant, Charming, Dull, Spectacular, Worth it, Waste of time",
+
+                    jsonLongComment = "This place was absolutely wonderful, I would definitely visit again!, The trip was okay but not as great as I expected., A must-see destination for anyone visiting the area!, Honestly, I wouldn’t recommend this place, it was a waste of time., Stunning views and a very unique atmosphere, we loved every moment., Too crowded and overpriced, not worth the hype., Such a hidden gem, I’m glad we decided to stop by!, It was an average experience, nothing really special stood out., Perfect for a family trip, the kids loved it!, Beautiful and peaceful, I could stay here all day., The history here is fascinating, I learned so much., It felt very touristy and artificial, not authentic., Absolutely breathtaking, the photos don’t do it justice!, A bit hard to reach, but once there it was worth the effort., The locals were so friendly and welcoming, it made the trip., It rained the whole time, which ruined the experience., The architecture is incredible, I could stare at it forever., The food nearby was delicious, I’d come back just to eat again., Way too commercialized, it lost its charm for me., Definitely a bucket list experience, unforgettable!, Felt unsafe at night, I wouldn’t recommend staying too long., Peaceful and relaxing, a great escape from the city., Very overrated, I don’t get why it’s so popular., Full of life and energy, I had so much fun!, A magical atmosphere, it felt like stepping into another world."
                 }
+
 
             };
         }
