@@ -1,6 +1,3 @@
-# För att göra .ps1-filen körbar, kör följande kommando i PowerShell (Behöver bara köras första gången):
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 # PowerShell script to fetch all remote branches and create local tracking branches
 # Run this script with: .\fetch-all-branches.ps1
 

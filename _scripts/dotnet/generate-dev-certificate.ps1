@@ -1,6 +1,3 @@
-# För att göra .ps1-filen körbar, kör följande kommando i PowerShell (Behöver bara köras första gången):
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 # PowerShell Script to Generate and Trust Development Certificate for HTTPS
 # This script sets up a development certificate for ASP.NET Core applications
 # to work with HTTPS in browsers like Edge, Chrome, etc.

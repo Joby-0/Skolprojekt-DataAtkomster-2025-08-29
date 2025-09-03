@@ -1,6 +1,3 @@
-# För att göra .ps1-filen körbar, kör följande kommando i PowerShell (Behöver bara köras första gången):
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 # PowerShell script to check for outdated NuGet packages
 # Run this script with: .\nuget-update.ps1
 

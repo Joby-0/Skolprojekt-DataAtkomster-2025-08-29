@@ -1,6 +1,3 @@
-# För att göra .ps1-filen körbar, kör följande kommando i PowerShell (Behöver bara köras första gången):
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 # PowerShell script to display .NET information
 # Run this script with: .\dotnet-info.ps1
 
@@ -16,4 +13,3 @@ Write-Host "`n=== Installed Runtimes ===" -ForegroundColor Yellow
 dotnet --list-runtimes
 
 Write-Host "`n.NET information gathering complete!" -ForegroundColor Green
-

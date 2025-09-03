@@ -1,6 +1,3 @@
-# För att göra .ps1-filen körbar, kör följande kommando i PowerShell (Behöver bara köras första gången):
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 # get-user-secrets-folder.ps1
 # Cross-platform PowerShell script to get user secrets base folder
 
