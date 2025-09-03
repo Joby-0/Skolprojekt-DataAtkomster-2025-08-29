@@ -6,6 +6,6 @@ public interface ICity
 
     public string CityName { get; set; }
 
-    public Country Country { get; set; }
+    public ICountry Country { get; set; }
     
 }

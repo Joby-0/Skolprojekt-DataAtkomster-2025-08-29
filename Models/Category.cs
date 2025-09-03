@@ -9,7 +9,7 @@ public class Category : ICategory, ISeed<Category>
     public virtual string CategoryName { get; set; }
 
     //en categori kan ha flera sights eller ingen
-    public virtual List<Sight> Sights { get; set; } = null;
+    public virtual List<ISight> Sights { get; set; } = null;
     public bool Seeded { get; set; }
 
     public Category Seed(SeedGenerator seedGenerator)

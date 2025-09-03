@@ -6,5 +6,5 @@ public interface ICategory
     public string CategoryName { get; set; }
 
     //man kankse kan göra så här
-    public List<Sight> Sights { get; set; }
+    public List<ISight> Sights { get; set; }
 }

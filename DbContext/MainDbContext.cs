@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Configuration;
 using DbModels;
 using Microsoft.Extensions.Hosting.Internal;
+using DbContext.Extensions;
 
 namespace DbContext;
 
@@ -12,17 +13,28 @@ namespace DbContext;
 //used for all Database connection as well as for EFC CodeFirst migration and database updates 
 public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    IConfiguration _configuration;
+        DatabaseConnections _databaseConnections;
+
+#if DEBUG
+    // remove password from connection string in debug mode
+    // this is useful for debugging and logging purposes, but should not be used in production code
+    public string dbConnection => System.Text.RegularExpressions.Regex.Replace(
+        this.Database.GetConnectionString() ?? "", @"(pwd|password)=[^;]*;?", "",
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+#endif
 
     #region C# model of database tables
     public DbSet<SightDbM> Sights { get; set; }
+    public DbSet<AddressDbM> Addresses { get; set; }
+    public DbSet<CategoryDbM> Categories { get; set; }
+
     #endregion
 
     #region constructors
     public MainDbContext() { }
-    public MainDbContext(DbContextOptions options, IConfiguration configuration) : base(options)
+    public MainDbContext(DbContextOptions options, DatabaseConnections databaseConnections) : base(options)
     { 
-        _configuration = configuration;
+        _databaseConnections = databaseConnections;
     }
     #endregion
 
@@ -35,39 +47,12 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    //used by the child DbContexts to retrieve the connection string
-    protected string GetConnectionString(string connectionStringName)
-    {
-        string connectionString = null;
-
-        // Check if configuration is available (runtime) or create one for design time
-        if (_configuration != null)
-        {
-            // Runtime: use configuration service
-            connectionString = _configuration.GetConnectionString(connectionStringName);
-            System.Console.WriteLine($"Runtime Connection String from config: {connectionString}");
-        }
-        else
-        {
-            // Design time: manually create configuration to read appsettings.json
-            var configBuilder = new ConfigurationBuilder()
-                .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            var config = configBuilder.Build();
-            connectionString = config.GetConnectionString(connectionStringName);
-            System.Console.WriteLine($"Design time Connection String from appsettings.json: {connectionString}");
-        }
-
-        return connectionString;
-    }
-
     #region DbContext for some popular databases
     public class SqlServerDbContext : MainDbContext
     {
         public SqlServerDbContext() { }
-        public SqlServerDbContext(DbContextOptions options, IConfiguration configuration) 
-            : base(options, configuration) { }
+        public SqlServerDbContext(DbContextOptions options, DatabaseConnections databaseConnections) 
+            : base(options, databaseConnections) { }
 
 
         //Used only for CodeFirst Database Migration and database update commands
@@ -75,8 +60,8 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = GetConnectionString("SqlServerDocker");
-                optionsBuilder.UseSqlServer(connectionString, options => options.EnableRetryOnFailure());
+                optionsBuilder = optionsBuilder.ConfigureForDesignTime(
+                    (options, connectionString) => options.UseSqlServer(connectionString, options => options.EnableRetryOnFailure()));
             }
 
             base.OnConfiguring(optionsBuilder);
@@ -108,9 +93,10 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = GetConnectionString("MySqlDocker");
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-                    b => b.SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate, (schema, table) => $"{schema}_{table}"));
+                optionsBuilder = optionsBuilder.ConfigureForDesignTime(
+                    (options, connectionString) =>
+                        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+                            b => b.SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate, (schema, table) => $"{schema}_{table}")));
             }
 
             base.OnConfiguring(optionsBuilder);
@@ -136,10 +122,8 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = GetConnectionString("PostgresDocker");
-                System.Console.WriteLine($"Connection String: {connectionString}");
-                
-                optionsBuilder.UseNpgsql(connectionString);
+                optionsBuilder = optionsBuilder.ConfigureForDesignTime(
+                    (options, connectionString) => options.UseNpgsql(connectionString));
             }
 
             base.OnConfiguring(optionsBuilder);

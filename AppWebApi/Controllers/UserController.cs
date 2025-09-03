@@ -10,10 +10,15 @@ using Services;
 public class UserController : Controller
 {
     private readonly ILogger<UserController> _logger;
+    public UserController(ILogger<UserController> logger)
+    {
+        _logger = logger;
+
+    }
     [HttpGet()]
     [ActionName("AllUsers")]
     [ProducesResponseType(200)]
-    
+
     public IActionResult AllUsers()
     {
         try
@@ -29,7 +34,7 @@ public class UserController : Controller
     [HttpPost()]
     [ActionName("AddUser")]
     [ProducesResponseType(200)]
-    
+
     public IActionResult AddUser()
     {
         try
@@ -46,7 +51,7 @@ public class UserController : Controller
     [HttpDelete("{UserId}")]
     [ActionName("RemoveUser")]
     [ProducesResponseType(200)]
-    
+
     public IActionResult RemoveUser(string UserId)
     {
         try

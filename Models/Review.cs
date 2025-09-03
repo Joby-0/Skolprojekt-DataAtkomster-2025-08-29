@@ -9,8 +9,8 @@ public class Review : IReview, ISeed<Review>
     public virtual int Rating { get; set; }
     public virtual string Comment { get; set; } = null;
     public virtual DateTime Created_at { get; set; }
-    public virtual Sight Sight { get; set; }
-    public virtual User User { get; set; }
+    public virtual ISight Sight { get; set; }
+    public virtual IUser User { get; set; }
     public bool Seeded { get; set; }
 
     public Review Seed(SeedGenerator seedGenerator)
