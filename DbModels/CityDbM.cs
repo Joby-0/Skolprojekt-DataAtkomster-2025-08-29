@@ -5,6 +5,7 @@ using Joby.Utilities.SeedGenerator;
 using Models;
 
 namespace DbModels;
+[Table("Cities", Schema = "supusr")]
 
 public class CityDbM : City, ISeed<CityDbM>, IEquatable<CityDbM>
 {

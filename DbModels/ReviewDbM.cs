@@ -5,6 +5,7 @@ using Joby.Utilities.SeedGenerator;
 using Models;
 
 namespace DbModels;
+[Table("Reviews", Schema = "supusr")]
 
 public class ReviewDbM : Review, ISeed<ReviewDbM>
 {

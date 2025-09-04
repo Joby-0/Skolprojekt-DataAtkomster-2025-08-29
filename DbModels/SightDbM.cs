@@ -6,6 +6,7 @@ using Models;
 
 namespace DbModels;
 
+[Table("Sights", Schema = "supusr")]
 public class SightDbM : Sight, ISeed<SightDbM>
 {
     [Key]
@@ -18,7 +19,7 @@ public class SightDbM : Sight, ISeed<SightDbM>
     // public Guid? CategoryId { get; set; }
 
     [NotMapped]
-    public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }        
+    public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }
 
     [ForeignKey("AddressId")]
     [JsonIgnore]
@@ -31,7 +32,7 @@ public class SightDbM : Sight, ISeed<SightDbM>
     [JsonIgnore]
     public List<CategoryDbM> CategoryDbM { get; set; }
 
-   
+
 
     SightDbM ISeed<SightDbM>.Seed(SeedGenerator seedGenerator)
     {

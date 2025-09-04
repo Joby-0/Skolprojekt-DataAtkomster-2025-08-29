@@ -5,6 +5,8 @@ using Models;
 
 namespace DbModels;
 
+[Table("Users", Schema = "supusr")]
+
 public class UserDbM : User, ISeed<UserDbM>
 {
     [Key]
@@ -16,7 +18,7 @@ public class UserDbM : User, ISeed<UserDbM>
     [Required]
     public override string Email { get; set; }
 
-   
+
 
     UserDbM ISeed<UserDbM>.Seed(SeedGenerator seedGenerator)
     {
