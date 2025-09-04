@@ -40,13 +40,13 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new()
     {
-        Title = "Seido Friends API",
+        Title = "Johan Sight API",
 #if DEBUG
         Version = "v2.0 DEBUG",
 #else
         Version = "v2.0",
 #endif
-        Description = "This is an API used in Seido's various software developer training courses."
+        Description = "This is an API used in Johans's various software developer training courses."
         + $"<br>DataSet: {builder.Configuration["DatabaseConnections:UseDataSetWithTag"]}"
         + $"<br>DefaultDataUser: {builder.Configuration["DatabaseConnections:DefaultDataUser"]}"
     });
@@ -71,7 +71,7 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Seido Friends API v2.0");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Johan Sight API v2.0");
     });
 }
 
