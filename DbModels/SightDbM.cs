@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Joby.Utilities.SeedGenerator;
 using Models;
 
@@ -12,11 +13,23 @@ public class SightDbM : Sight, ISeed<SightDbM>
     [Required]
     public override string SightName { get; set; }
 
-    [NotMapped]
-    public override IAddress Address { get; set; }
+    public Guid? AddressId { get; set; }
+    public Guid? CategoryId { get; set; }
 
     [NotMapped]
-    public override List<ICategory> Categories { get; set; }
+    public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }        
+
+    [ForeignKey("AddressId")]
+    [JsonIgnore]
+    public AddressDbM AddressDbM { get; set; }
+
+    [NotMapped]
+    public override List<ICategory> Categories { get => CategoryDbM?.ToList<ICategory>(); set => new NotImplementedException(); }
+
+    [ForeignKey("CategoryId")]
+    [JsonIgnore]
+    public List<CategoryDbM> CategoryDbM { get; set; }
+
    
 
     SightDbM ISeed<SightDbM>.Seed(SeedGenerator seedGenerator)

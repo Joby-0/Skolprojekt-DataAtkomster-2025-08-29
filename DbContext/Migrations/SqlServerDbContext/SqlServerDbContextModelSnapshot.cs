@@ -22,22 +22,43 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CategoryDbMSightDbM", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SightId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CategoryId", "SightId");
+
+                    b.HasIndex("SightId");
+
+                    b.ToTable("CategoryDbMSightDbM");
+                });
+
             modelBuilder.Entity("DbModels.AddressDbM", b =>
                 {
                     b.Property<Guid>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Seeded")
                         .HasColumnType("bit");
 
                     b.Property<string>("Street")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Addresses");
                 });
@@ -49,6 +70,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CategoryName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("Seeded")
@@ -66,12 +88,18 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CityName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Seeded")
                         .HasColumnType("bit");
 
                     b.HasKey("CityId");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
                 });
@@ -83,6 +111,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CountryName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("Seeded")
@@ -111,7 +140,17 @@ namespace DbContext.Migrations.SqlServerDbContext
                     b.Property<bool>("Seeded")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("SightId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ReviewId");
+
+                    b.HasIndex("SightId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -122,6 +161,12 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .HasColumnType("varchar(200)");
 
@@ -129,9 +174,12 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasColumnType("bit");
 
                     b.Property<string>("SightName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.HasKey("SightId");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Sights");
                 });
@@ -143,12 +191,15 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("varchar(200)");
 
                     b.Property<bool>("Seeded")
@@ -157,6 +208,71 @@ namespace DbContext.Migrations.SqlServerDbContext
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CategoryDbMSightDbM", b =>
+                {
+                    b.HasOne("DbModels.SightDbM", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DbModels.CategoryDbM", null)
+                        .WithMany()
+                        .HasForeignKey("SightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DbModels.AddressDbM", b =>
+                {
+                    b.HasOne("DbModels.CityDbM", "CityDbM")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CityDbM");
+                });
+
+            modelBuilder.Entity("DbModels.CityDbM", b =>
+                {
+                    b.HasOne("DbModels.CountryDbM", "CountryDbM")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CountryDbM");
+                });
+
+            modelBuilder.Entity("DbModels.ReviewDbM", b =>
+                {
+                    b.HasOne("DbModels.SightDbM", "SightDbM")
+                        .WithMany()
+                        .HasForeignKey("SightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DbModels.UserDbM", "UserDbM")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SightDbM");
+
+                    b.Navigation("UserDbM");
+                });
+
+            modelBuilder.Entity("DbModels.SightDbM", b =>
+                {
+                    b.HasOne("DbModels.AddressDbM", "AddressDbM")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.Navigation("AddressDbM");
                 });
 #pragma warning restore 612, 618
         }

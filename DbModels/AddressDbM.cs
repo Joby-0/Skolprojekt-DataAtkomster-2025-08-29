@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Joby.Utilities.SeedGenerator;
 using Models;
 
@@ -14,8 +15,16 @@ public class AddressDbM : Address, ISeed<AddressDbM>
     [Required]
     public override int ZipCode { get; set; }
 
+    public Guid? CityId { get; set; }
+
     [NotMapped]
-    public override ICity City { get; set; }
+    public override ICity City { get => CityDbM; set => new NotImplementedException(); }
+
+    [JsonIgnore]
+    [Required]
+    [ForeignKey("CityId")]
+
+    public CityDbM CityDbM { get; set; }
 
     AddressDbM ISeed<AddressDbM>.Seed(SeedGenerator seedGenerator)
     {
