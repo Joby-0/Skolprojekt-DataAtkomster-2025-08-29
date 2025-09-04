@@ -9,7 +9,9 @@ public class AddressDbM : Address, ISeed<AddressDbM>
 {
     [Key]
     public override Guid AddressId { get; set; }
+    [Required]
     public override string Street { get; set; }
+    [Required]
     public override int ZipCode { get; set; }
 
     [NotMapped]

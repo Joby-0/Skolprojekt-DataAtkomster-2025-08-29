@@ -9,7 +9,8 @@ public class CountryDbM : Country, ISeed<CountryDbM>
 {
     [Key]
     public override Guid CountryId { get; set; }
-    public override string CountryName { get ; set; }
+    [Required]
+    public override string CountryName { get; set; }
 
 
    

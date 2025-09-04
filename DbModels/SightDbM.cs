@@ -9,7 +9,8 @@ public class SightDbM : Sight, ISeed<SightDbM>
 {
     [Key]
     public override Guid SightId { get; set; }
-    public override string SightName { get ; set; }
+    [Required]
+    public override string SightName { get; set; }
 
     [NotMapped]
     public override IAddress Address { get; set; }

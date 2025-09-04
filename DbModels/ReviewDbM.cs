@@ -9,6 +9,7 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>
 {
     [Key]
     public override Guid ReviewId { get; set; }
+    [Required]
     public override int Rating { get; set; }
     public override string Comment { get; set; }
     public override DateTime Created_at { get; set; }

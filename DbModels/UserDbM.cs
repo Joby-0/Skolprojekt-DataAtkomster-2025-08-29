@@ -9,8 +9,11 @@ public class UserDbM : User, ISeed<UserDbM>
 {
     [Key]
     public override Guid UserId { get; set; }
-    public override string FirstName { get ; set; }
+    [Required]
+    public override string FirstName { get; set; }
+    [Required]
     public override string LastName { get; set; }
+    [Required]
     public override string Email { get; set; }
 
    

@@ -9,7 +9,8 @@ public class CityDbM : City, ISeed<CityDbM>
 {
     [Key]
     public override Guid CityId { get; set; }
-    public override string CityName { get ; set; }
+    [Required]
+    public override string CityName { get; set; }
 
 
     [NotMapped]

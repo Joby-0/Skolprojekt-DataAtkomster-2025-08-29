@@ -9,7 +9,8 @@ public class CategoryDbM : Category, ISeed<CategoryDbM>
 {
     [Key]
     public override Guid CategoryId { get; set; }
-    public override string CategoryName { get ; set; }
+    [Required]
+    public override string CategoryName { get; set; }
 
 
     [NotMapped]
