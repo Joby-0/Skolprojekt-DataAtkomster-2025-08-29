@@ -6,7 +6,7 @@ using Models;
 
 namespace DbModels;
 
-public class AddressDbM : Address, ISeed<AddressDbM>
+public class AddressDbM : Address, ISeed<AddressDbM>, IEquatable<AddressDbM>
 {
     [Key]
     public override Guid AddressId { get; set; }
@@ -15,6 +15,7 @@ public class AddressDbM : Address, ISeed<AddressDbM>
     [Required]
     public override int ZipCode { get; set; }
 
+    [JsonIgnore]
     public Guid? CityId { get; set; }
 
     [NotMapped]
@@ -31,4 +32,12 @@ public class AddressDbM : Address, ISeed<AddressDbM>
         base.Seed(seedGenerator);
         return this;
     }
+
+    #region implementing IEquatable
+    public bool Equals(AddressDbM other) => (other != null) && ((Street, ZipCode, City) ==
+        (other.Street, other.ZipCode, other.City));
+
+    public override bool Equals(object obj) => Equals(obj as AddressDbM);
+    public override int GetHashCode() => (Street, ZipCode, City).GetHashCode();
+    #endregion
 }

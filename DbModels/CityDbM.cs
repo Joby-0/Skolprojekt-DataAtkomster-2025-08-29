@@ -6,14 +6,15 @@ using Models;
 
 namespace DbModels;
 
-public class CityDbM : City, ISeed<CityDbM>
+public class CityDbM : City, ISeed<CityDbM>, IEquatable<CityDbM>
 {
     [Key]
     public override Guid CityId { get; set; }
     [Required]
     public override string CityName { get; set; }
 
-    public Guid CountryId { get; set; }
+    [JsonIgnore]
+    public Guid? CountryId { get; set; }
 
 
     [NotMapped]
@@ -29,4 +30,12 @@ public class CityDbM : City, ISeed<CityDbM>
         base.Seed(seedGenerator);
         return this;
     }
+
+    #region implementing IEquatable
+    public bool Equals(CityDbM other) => (other != null) && ((CityName) ==
+        (other.CityName));
+
+    public override bool Equals(object obj) => Equals(obj as CityDbM);
+    public override int GetHashCode() => (CityName).GetHashCode();
+    #endregion
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbContext.Migrations.SqlServerDbContext
 {
     [DbContext(typeof(MainDbContext.SqlServerDbContext))]
-    [Migration("20250904092126_miInitial")]
+    [Migration("20250904110532_miInitial")]
     partial class miInitial
     {
         /// <inheritdoc />
@@ -27,13 +27,13 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             modelBuilder.Entity("CategoryDbMSightDbM", b =>
                 {
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid>("SightDbMSightId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("SightId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CategoryId", "SightId");
+                    b.HasKey("SightDbMSightId", "SightId");
 
                     b.HasIndex("SightId");
 
@@ -167,9 +167,6 @@ namespace DbContext.Migrations.SqlServerDbContext
                     b.Property<Guid?>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Description")
                         .HasColumnType("varchar(200)");
 
@@ -217,7 +214,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                 {
                     b.HasOne("DbModels.SightDbM", null)
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("SightDbMSightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

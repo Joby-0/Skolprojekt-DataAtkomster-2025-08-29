@@ -1,4 +1,5 @@
 namespace DbRepos;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -7,6 +8,8 @@ using DbModels;
 using DbContext;
 using Configuration;
 using Joby.Utilities.SeedGenerator;
+using Models;
+
 public class SightDbRepos
 {
     private readonly ILogger<SightDbRepos> _logger;
@@ -15,15 +18,31 @@ public class SightDbRepos
 
     public async Task SeedAsync()
     {
-        
         var seeder = new SeedGenerator();
-        
-        var sights = seeder.ItemsToList<SightDbM>(100);
+
+        var cities = seeder.UniqueItemsToList<CityDbM>(300);
+        var countries = seeder.UniqueItemsToList<CountryDbM>(100);
+        foreach (var city in cities)
+        {
+            city.CountryDbM = seeder.FromList(countries);
+        }
+
+        var addresses = seeder.UniqueItemsToList<AddressDbM>(1000);
+        foreach (var address in addresses)
+        {
+            address.CityDbM = seeder.FromList(cities);
+        }
+        var sights = seeder.ItemsToList<SightDbM>(1000);
+
+        foreach (var sight in sights)
+        {
+            sight.AddressDbM = seeder.FromList(addresses);
+        }
         _dbContext.Sights.AddRange(sights);
-        
-        //Save changes to the database
+
         await _dbContext.SaveChangesAsync();
     }
+
 
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {

@@ -15,7 +15,10 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>
     public override string Comment { get; set; }
     public override DateTime Created_at { get; set; }
 
+    [JsonIgnore]
     public Guid? SightId { get; set; }
+
+    [JsonIgnore]
     public Guid? UserId { get; set; }
 
     [NotMapped]

@@ -100,7 +100,6 @@ namespace DbContext.Migrations.SqlServerDbContext
                     SightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SightName = table.Column<string>(type: "varchar(200)", nullable: false),
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Description = table.Column<string>(type: "varchar(200)", nullable: true),
                     Seeded = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -118,12 +117,12 @@ namespace DbContext.Migrations.SqlServerDbContext
                 name: "CategoryDbMSightDbM",
                 columns: table => new
                 {
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SightDbMSightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryDbMSightDbM", x => new { x.CategoryId, x.SightId });
+                    table.PrimaryKey("PK_CategoryDbMSightDbM", x => new { x.SightDbMSightId, x.SightId });
                     table.ForeignKey(
                         name: "FK_CategoryDbMSightDbM_Categories_SightId",
                         column: x => x.SightId,
@@ -131,8 +130,8 @@ namespace DbContext.Migrations.SqlServerDbContext
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CategoryDbMSightDbM_Sights_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_CategoryDbMSightDbM_Sights_SightDbMSightId",
+                        column: x => x.SightDbMSightId,
                         principalTable: "Sights",
                         principalColumn: "SightId",
                         onDelete: ReferentialAction.Cascade);

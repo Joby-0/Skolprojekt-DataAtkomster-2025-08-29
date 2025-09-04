@@ -121,7 +121,7 @@ namespace Joby.Utilities.SeedGenerator
             }
 
             var tmp = _seeds.Sights[this.Next(0, _seeds.Sights.Count)];
-            return $"{tmp.SightsName[this.Next(0, tmp.SightsName.Count)]} {this.Next(1, 100)}";
+            return $"{tmp.SightsName[this.Next(0, tmp.SightsName.Count)]}";
         }
         public string SightDescription(string Country = null)
         {
@@ -134,7 +134,7 @@ namespace Joby.Utilities.SeedGenerator
             }
 
             var tmp = _seeds.Sights[this.Next(0, _seeds.Sights.Count)];
-            return $"{tmp.SightsDesc[this.Next(0, tmp.SightsDesc.Count)]} {this.Next(1, 100)}";
+            return $"{tmp.SightsDesc[this.Next(0, tmp.SightsDesc.Count)]}";
         }
 
         #endregion
@@ -625,22 +625,59 @@ namespace Joby.Utilities.SeedGenerator
                             jsonCountry = "Norway",
                             jsonCities = "Oslo, Bergen, Trondheim, Stavanger, Dramen",
                             jsonStreets = "Bygdoy alle, Frognerveien, Pilestredet, Vidars gate, Sågveien, Toftes gate, Gardeveiend",
-                    },
+                        },
                         new SeedAddress {
                             jsonCountry = "Denmark",
                             jsonCities = "Köpenhamn, Århus, Odense, Aahlborg, Esbjerg",
                             jsonStreets = "Rolighedsvej, Fensmarkgade, Svanevej, Gröndalsvej, Githersgade, Classensgade, Moltekesvej"
-                    },
+                        },
                         new SeedAddress {
                             jsonCountry = "Finland",
                             jsonCities = "Helsingfors, Espoo, Tampere, Vaanta, Oulu",
                             jsonStreets = "Arkandiankatu, Liisankatu, Ruoholahdenkatu, Pohjoistranta, Eerikinkatu, Vauhtitie, Itainen Vaideki"
-                    },
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Iceland",
+                            jsonCities = "Reykjavik, Akureyri, Kópavogur, Hafnarfjörður, Reykjanesbær",
+                            jsonStreets = "Laugavegur, Skólavörðustígur, Hverfisgata, Sundlaugavegur, Breiðholtsbraut"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Germany",
+                            jsonCities = "Berlin, Hamburg, Munich, Cologne, Frankfurt, Stuttgart, Düsseldorf, Dortmund, Essen, Leipzig",
+                            jsonStreets = "Kurfürstendamm, Friedrichstrasse, Unter den Linden, Königstraße, Maximilianstraße, Zeil, Schloßstraße, Berliner Allee, Mönckebergstraße, König-Heinrich-Straße"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Netherlands",
+                            jsonCities = "Amsterdam, Rotterdam, The Hague, Utrecht, Eindhoven, Tilburg, Groningen, Breda, Nijmegen, Haarlem",
+                            jsonStreets = "Damrak, Kalverstraat, Leidsestraat, Lijnbaan, Lange Voorhout, Veldstraat, Grote Marktstraat, Nieuwe Gracht, Breestraat, Kerkstraat"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Belgium",
+                            jsonCities = "Brussels, Antwerp, Ghent, Bruges, Leuven, Liège, Namur, Mons, Mechelen, Hasselt",
+                            jsonStreets = "Rue Neuve, Meir, Veldstraat, Steenstraat, Bondgenotenlaan, Avenue Louise, Rue de la Régence, Grote Markt, Korenmarkt, Graaf van Egmontstraat"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Australia",
+                            jsonCities = "Sydney, Melbourne, Brisbane, Perth, Adelaide, Gold Coast, Canberra, Hobart, Darwin, Newcastle",
+                            jsonStreets = "George Street, Collins Street, Queen Street, St Kilda Road, King William Street, Elizabeth Street, Flinders Street, Macquarie Street, Hunter Street, Pitt Street"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "France",
+                            jsonCities = "Paris, Marseille, Lyon, Toulouse, Nice, Nantes, Strasbourg, Montpellier, Bordeaux, Lille",
+                            jsonStreets = "Rue de Rivoli, Avenue des Champs-Élysées, Rue Saint-Honoré, Boulevard Saint-Germain, Rue de la Paix, Rue du Faubourg Saint-Antoine, Rue de Rennes, Avenue Victor Hugo, Rue Lafayette, Boulevard Haussmann"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Italy",
+                            jsonCities = "Rome, Milan, Naples, Turin, Palermo, Genoa, Bologna, Florence, Venice, Verona",
+                            jsonStreets = "Via del Corso, Via dei Fori Imperiali, Via Nazionale, Via Veneto, Via Condotti, Corso Vittorio Emanuele II, Via Dante, Via Garibaldi, Via Roma, Via Po"
+                        }
                 },
                 Names = new SeedNames
                 {
-                    jsonFirstNames = "Harry, Lord, Hermione, Albus, Severus, Ron, Draco, Frodo, Gandalf, Sam, Peregrin, Saruman, Johan, Erik, Bertil",
-                    jsonLastNames = "Potter, Voldemort, Granger, Dumbledore, Snape, Malfoy, Baggins, the Gray, Gamgee, Took, the White, Bylander, Maars, Johansson, Raisen, Lindberg",
+                    jsonFirstNames = "Harry, Lord, Hermione, Albus, Severus, Ron, Draco, Frodo, Gandalf, Sam, Peregrin, Saruman, Johan, Erik, Bertil, Maria, Sofia, Luca, Matteo, Isabella, Hiroshi, Yuki, Akira, Chen, Wei, Fatima, Aisha, Omar, Jamal, Priya, Ananya, Diego, Carlos, Ana, Sofia, Liam, Emma, Noah, Olivia, William, Ava, Ethan, Mia, Alexander, Chloe, Leo, Amelie, Lucas, Camille, Aria, Kai, Soren, Freja, Lars, Henrik, Nikolai, Ivan, Svetlana, Olga, Miguel, José, Anaïs, Leila, Zara, Hassan, Abdul, Yara, Tariq, Nia, Kofi, Adebayo, Chidi, Thabo, Amara, Hiro, Kenji, Mei, Li, Ying, Fatou, Amina, Idris, Raj, Sanjay, Priya, Rohan, Aiko, Sakura, Matteo, Giovanni, Lorenzo, Isabella, Elena, Alessia",
+
+                    jsonLastNames = "Potter, Voldemort, Granger, Dumbledore, Snape, Malfoy, Baggins, the Gray, Gamgee, Took, the White, Bylander, Maars, Johansson, Raisen, Lindberg, Smith, Johnson, Williams, Brown, Jones, Garcia, Martinez, Rodriguez, Kim, Lee, Park, Nguyen, Tran, Chen, Li, Wang, Patel, Singh, Khan, Ali, Ahmed, Hussein, Oliveira, Silva, Costa, Rossi, Bianchi, Ferrari, Müller, Schmidt, Schneider, Ivanov, Petrov, Popov, Jensen, Hansen, Nielsen, Andersen, Dubois, Lefevre, Moreau, Dubois, Lefèvre, Dupont, O’Connor, Murphy, Fernández, González, López, Martínez, Novak, Horvat, Kovač, Singh, Sharma, Gupta, Yamamoto, Tanaka, Suzuki, Kimura, Andersen, Björk, Svensson",
+
                     jsonPetNames = "Max, Charlie, Cooper, Milo, Rocky, Wanda, Teddy, Duke, Leo, Max, Simba",
                 },
                 Domains = new SeedDomains

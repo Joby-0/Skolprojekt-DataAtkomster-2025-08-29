@@ -13,8 +13,9 @@ public class SightDbM : Sight, ISeed<SightDbM>
     [Required]
     public override string SightName { get; set; }
 
+    [JsonIgnore]
     public Guid? AddressId { get; set; }
-    public Guid? CategoryId { get; set; }
+    // public Guid? CategoryId { get; set; }
 
     [NotMapped]
     public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }        
@@ -26,7 +27,7 @@ public class SightDbM : Sight, ISeed<SightDbM>
     [NotMapped]
     public override List<ICategory> Categories { get => CategoryDbM?.ToList<ICategory>(); set => new NotImplementedException(); }
 
-    [ForeignKey("CategoryId")]
+    // [ForeignKey("CategoryId")]
     [JsonIgnore]
     public List<CategoryDbM> CategoryDbM { get; set; }
 
