@@ -21,9 +21,27 @@ public class SightController : Controller
         _service = service;
 
     }
-
     [HttpGet()]
     [ActionName("AllSights")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> AllSights()
+    {
+        try
+        {
+            _logger.LogInformation($"{nameof(SeedSights)}");
+            var sights = await _service.ReadSightsAsync();
+
+            return Ok(sights);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet()]
+    [ActionName("SeedSights")]
     [ProducesResponseType(200)]
     public async Task<IActionResult> SeedSights()
     {

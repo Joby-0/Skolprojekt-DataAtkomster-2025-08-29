@@ -34,7 +34,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasIndex("SightId");
 
-                    b.ToTable("CategoryDbMSightDbM");
+                    b.ToTable("CategoryDbMSightDbM", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.AddressDbM", b =>
@@ -60,7 +60,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.CategoryDbM", b =>
@@ -78,7 +78,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.CityDbM", b =>
@@ -91,7 +91,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<Guid>("CountryId")
+                    b.Property<Guid?>("CountryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Seeded")
@@ -101,7 +101,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.CountryDbM", b =>
@@ -119,7 +119,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.ReviewDbM", b =>
@@ -152,7 +152,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.SightDbM", b =>
@@ -178,7 +178,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Sights");
+                    b.ToTable("Sights", "supusr");
                 });
 
             modelBuilder.Entity("DbModels.UserDbM", b =>
@@ -204,7 +204,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", "supusr");
                 });
 
             modelBuilder.Entity("CategoryDbMSightDbM", b =>
@@ -237,9 +237,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                 {
                     b.HasOne("DbModels.CountryDbM", "CountryDbM")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
                     b.Navigation("CountryDbM");
                 });

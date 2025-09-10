@@ -11,8 +11,12 @@ namespace DbContext.Migrations.SqlServerDbContext
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "supusr");
+
             migrationBuilder.CreateTable(
                 name: "Categories",
+                schema: "supusr",
                 columns: table => new
                 {
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -26,6 +30,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateTable(
                 name: "Countries",
+                schema: "supusr",
                 columns: table => new
                 {
                     CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -39,6 +44,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "supusr",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -54,11 +60,12 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateTable(
                 name: "Cities",
+                schema: "supusr",
                 columns: table => new
                 {
                     CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CityName = table.Column<string>(type: "varchar(200)", nullable: false),
-                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Seeded = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -67,13 +74,14 @@ namespace DbContext.Migrations.SqlServerDbContext
                     table.ForeignKey(
                         name: "FK_Cities_Countries_CountryId",
                         column: x => x.CountryId,
+                        principalSchema: "supusr",
                         principalTable: "Countries",
-                        principalColumn: "CountryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CountryId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Addresses",
+                schema: "supusr",
                 columns: table => new
                 {
                     AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -88,6 +96,7 @@ namespace DbContext.Migrations.SqlServerDbContext
                     table.ForeignKey(
                         name: "FK_Addresses_Cities_CityId",
                         column: x => x.CityId,
+                        principalSchema: "supusr",
                         principalTable: "Cities",
                         principalColumn: "CityId",
                         onDelete: ReferentialAction.Cascade);
@@ -95,6 +104,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateTable(
                 name: "Sights",
+                schema: "supusr",
                 columns: table => new
                 {
                     SightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -109,12 +119,14 @@ namespace DbContext.Migrations.SqlServerDbContext
                     table.ForeignKey(
                         name: "FK_Sights_Addresses_AddressId",
                         column: x => x.AddressId,
+                        principalSchema: "supusr",
                         principalTable: "Addresses",
                         principalColumn: "AddressId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "CategoryDbMSightDbM",
+                schema: "supusr",
                 columns: table => new
                 {
                     SightDbMSightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -126,12 +138,14 @@ namespace DbContext.Migrations.SqlServerDbContext
                     table.ForeignKey(
                         name: "FK_CategoryDbMSightDbM_Categories_SightId",
                         column: x => x.SightId,
+                        principalSchema: "supusr",
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CategoryDbMSightDbM_Sights_SightDbMSightId",
                         column: x => x.SightDbMSightId,
+                        principalSchema: "supusr",
                         principalTable: "Sights",
                         principalColumn: "SightId",
                         onDelete: ReferentialAction.Cascade);
@@ -139,6 +153,7 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateTable(
                 name: "Reviews",
+                schema: "supusr",
                 columns: table => new
                 {
                     ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -155,12 +170,14 @@ namespace DbContext.Migrations.SqlServerDbContext
                     table.ForeignKey(
                         name: "FK_Reviews_Sights_SightId",
                         column: x => x.SightId,
+                        principalSchema: "supusr",
                         principalTable: "Sights",
                         principalColumn: "SightId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reviews_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "supusr",
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -168,31 +185,37 @@ namespace DbContext.Migrations.SqlServerDbContext
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CityId",
+                schema: "supusr",
                 table: "Addresses",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryDbMSightDbM_SightId",
+                schema: "supusr",
                 table: "CategoryDbMSightDbM",
                 column: "SightId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",
+                schema: "supusr",
                 table: "Cities",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_SightId",
+                schema: "supusr",
                 table: "Reviews",
                 column: "SightId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_UserId",
+                schema: "supusr",
                 table: "Reviews",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sights_AddressId",
+                schema: "supusr",
                 table: "Sights",
                 column: "AddressId");
         }
@@ -201,28 +224,36 @@ namespace DbContext.Migrations.SqlServerDbContext
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoryDbMSightDbM");
+                name: "CategoryDbMSightDbM",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Reviews");
+                name: "Reviews",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Categories",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Sights");
+                name: "Sights",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Addresses",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Cities",
+                schema: "supusr");
 
             migrationBuilder.DropTable(
-                name: "Countries");
+                name: "Countries",
+                schema: "supusr");
         }
     }
 }

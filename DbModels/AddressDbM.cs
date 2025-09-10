@@ -25,7 +25,6 @@ public class AddressDbM : Address, ISeed<AddressDbM>, IEquatable<AddressDbM>
     [JsonIgnore]
     [Required]
     [ForeignKey("CityId")]
-
     public CityDbM CityDbM { get; set; }
 
     AddressDbM ISeed<AddressDbM>.Seed(SeedGenerator seedGenerator)

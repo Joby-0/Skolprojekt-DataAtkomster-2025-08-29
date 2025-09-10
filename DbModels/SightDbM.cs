@@ -21,8 +21,8 @@ public class SightDbM : Sight, ISeed<SightDbM>
     [NotMapped]
     public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }
 
-    [ForeignKey("AddressId")]
     [JsonIgnore]
+    [ForeignKey("AddressId")]
     public AddressDbM AddressDbM { get; set; }
 
     [NotMapped]

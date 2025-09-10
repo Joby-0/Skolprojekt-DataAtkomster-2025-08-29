@@ -20,9 +20,8 @@ public class CityDbM : City, ISeed<CityDbM>, IEquatable<CityDbM>
 
     [NotMapped]
     public override ICountry Country { get => CountryDbM; set => new NotImplementedException(); }
-
+    
     [JsonIgnore]
-    [Required]
     [ForeignKey("CountryId")]
     public CountryDbM CountryDbM { get; set; }
 
