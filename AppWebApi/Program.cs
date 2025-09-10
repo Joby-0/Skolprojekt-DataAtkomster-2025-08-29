@@ -59,8 +59,10 @@ builder.Services.AddInMemoryLogger();
 
 //Inject DbRepos and Services
 builder.Services.AddScoped<SightDbRepos>();
+builder.Services.AddScoped<AdminDbRepos>();
 
 builder.Services.AddScoped<ISightService, SightServiceDb>();
+builder.Services.AddScoped<IAdminService, AdminServiceDb>();
 
 var app = builder.Build();
 

@@ -33,36 +33,19 @@ public class SightController : Controller
             bool flatArg = bool.Parse(flat);
             int pageNrArg = int.Parse(pageNumber);
             int pageSizeArg = int.Parse(pageSize);
-            _logger.LogInformation($"{nameof(SeedSights)}");
+            _logger.LogInformation($"{nameof(AllSights)}");
             var sights = await _service.ReadSightsAsync(seededArg, flatArg, filter?.Trim().ToLower(), pageNrArg, pageSizeArg);
 
             return Ok(sights);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
+            _logger.LogError($"{nameof(AllSights)}: {ex.Message}");
             return BadRequest(ex.Message);
         }
     }
 
-    [HttpGet()]
-    [ActionName("SeedSights")]
-    [ProducesResponseType(200)]
-    public async Task<IActionResult> SeedSights(string nrOfItems = "1000")
-    {
-        try
-        {
-            _logger.LogInformation($"{nameof(SeedSights)}");
-            await _service.SeedAsync(nrOfItems);
 
-            return Ok("Seeding completed successfully");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"{nameof(SeedSights)}: {ex.Message}");
-            return BadRequest(ex.Message);
-        }
-    }
 
     [HttpGet()]
     [ActionName("Sightsnoreview")]

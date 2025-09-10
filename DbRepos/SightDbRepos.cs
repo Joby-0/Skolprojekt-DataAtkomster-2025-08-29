@@ -62,6 +62,8 @@ public class SightDbRepos
             query = _dbContext.Sights
                 .Include(s => s.AddressDbM)
                 .Include(s => s.CategoryDbM)
+                .Include(s => s.AddressDbM.CityDbM)
+                .Include(s => s.AddressDbM.CityDbM.CountryDbM)
                 .AsNoTracking();
         }
 
@@ -71,8 +73,20 @@ public class SightDbRepos
             ConnectionString = _dbContext.dbConnection,
 #endif
 
-            DbItemsCount = await query.CountAsync(),
+            DbItemsCount = await query
+
+            .Where(i => (i.Seeded == seeded)
+             && i.AddressDbM.Street.ToLower().Contains(filter)
+             || i.AddressDbM.CityDbM.CityName.ToLower().Contains(filter)
+             || i.AddressDbM.CityDbM.CountryDbM.CountryName.ToLower().Contains(filter)).CountAsync(),
+           
             PageItems = await query
+
+            .Where(i => (i.Seeded == seeded)
+             && i.AddressDbM.Street.ToLower().Contains(filter)
+             || i.AddressDbM.CityDbM.CityName.ToLower().Contains(filter)
+             || i.AddressDbM.CityDbM.CountryDbM.CountryName.ToLower().Contains(filter))
+
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
             .ToListAsync<ISight>(),
