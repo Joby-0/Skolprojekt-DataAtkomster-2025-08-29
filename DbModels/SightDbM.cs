@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+// using System.Text.Json.Serialization;
 using Joby.Utilities.SeedGenerator;
 using Models;
+using Newtonsoft.Json;
 
 namespace DbModels;
 
@@ -19,10 +20,11 @@ public class SightDbM : Sight, ISeed<SightDbM>
     // public Guid? CategoryId { get; set; }
 
     [NotMapped]
+    
     public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }
 
-    [JsonIgnore]
     [ForeignKey("AddressId")]
+    [JsonIgnore]
     public AddressDbM AddressDbM { get; set; }
 
     [NotMapped]

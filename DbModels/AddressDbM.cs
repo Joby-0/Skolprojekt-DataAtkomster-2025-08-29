@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
 using Joby.Utilities.SeedGenerator;
 using Models;
 
@@ -26,7 +27,6 @@ public class AddressDbM : Address, ISeed<AddressDbM>, IEquatable<AddressDbM>
     [Required]
     [ForeignKey("CityId")]
     public CityDbM CityDbM { get; set; }
-
     AddressDbM ISeed<AddressDbM>.Seed(SeedGenerator seedGenerator)
     {
         base.Seed(seedGenerator);

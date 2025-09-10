@@ -1,6 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Joby.Utilities.SeedGenerator;
+using Newtonsoft.Json;
+
+
 using Models;
 
 namespace DbModels;
