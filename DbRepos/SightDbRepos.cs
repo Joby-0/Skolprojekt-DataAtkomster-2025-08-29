@@ -164,7 +164,7 @@ public class SightDbRepos
         return ret;
     }
 
-
+    
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {
         _logger = logger;

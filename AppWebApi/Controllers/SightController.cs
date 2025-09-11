@@ -14,7 +14,6 @@ public class SightController : Controller
     readonly ISightService _service;
 
     private readonly SeedGenerator _seeder = new SeedGenerator();
-    // private readonly ISightService sightService;
 
     public SightController(ILogger<SightController> logger, ISightService service)
     {
@@ -45,7 +44,7 @@ public class SightController : Controller
         }
     }
 
-    [HttpGet()]
+    [HttpGet("{Id}")]
     [ActionName("ReadItem")]
     [ProducesResponseType(200)]
     public async Task<IActionResult> Sight(string Id, string flat = "false")
@@ -64,8 +63,6 @@ public class SightController : Controller
             return BadRequest(ex.Message);
         }
     }
-
-
 
 
     [HttpGet()]
@@ -90,6 +87,47 @@ public class SightController : Controller
     }
 
 
+
+
+
+
+    [HttpPut("{Id}")]
+    [ActionName("UpdateItem")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> UpdateSight(string Id)
+    {
+        try
+        {
+            var idArg = Guid.Parse(Id);
+
+            var sight = await _service.DeleteSightAsync(idArg);
+            return Ok(sight);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost()]
+    [ActionName("CreateItem")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> CreateSight(string Id)
+    {
+        try
+        {
+            var idArg = Guid.Parse(Id);
+
+            var sight = await _service.DeleteSightAsync(idArg);
+            return Ok(sight);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
 
     [HttpDelete("{Id}")]
     [ActionName("DeleteItem")]

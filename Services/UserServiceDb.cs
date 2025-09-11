@@ -13,6 +13,8 @@ public class UserServiceDb : IUserService
 
     public Task<ResponsePageDto<IUser>> ReadUsersAsync(bool seeded, bool flat, string filter, int pageNumber, int pageSize) => _repo.ReadUsersAsync(seeded, flat,filter,pageNumber,pageSize);
 
+    public Task<ResponseItemDto<IUser>> ReadUserAsync(Guid id, bool flat) => _repo.ReadUserAsync(id, flat);
+
 
     #region constructors
     public UserServiceDb(UserDbRepos repo)

@@ -41,16 +41,19 @@ public class UserController : Controller
         }
     }
 
-    [HttpGet()]
+    [HttpGet("{id}")]
     [ActionName("ReadItem")]
     [ProducesResponseType(200)]
 
-    public async Task<IActionResult> User(string id)
+    public async Task<IActionResult> ReadItem(string id, string flat = "false")
     {
         try
         {
-            
-            return Ok(new SeedGenerator().ShortComment);
+            bool flatArg = bool.Parse(flat);
+            Guid idArg = Guid.Parse(id);
+
+            var user = await _service.ReadUserAsync(idArg, flatArg);
+            return Ok(user);
         }
         catch (Exception ex)
         {

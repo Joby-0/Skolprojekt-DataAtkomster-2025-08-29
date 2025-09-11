@@ -9,8 +9,6 @@ public interface ISight
 
     public IAddress Address { get; set; }
 
-    //man kankse kan göra så här
-
     public List<ICategory> Categories { get; set; }
     public List<IReview> Reviews { get; set; }
 

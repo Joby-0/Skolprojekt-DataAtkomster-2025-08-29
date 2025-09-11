@@ -69,7 +69,7 @@ public class UserDbRepos
         }
         else
         {
-            query = _dbContext.Users.AsNoTracking();
+            query = _dbContext.Users.Include(u => u.ReviewDbMs).AsNoTracking();
         }
         var ret = new ResponseItemDto<IUser>()
         {
