@@ -119,6 +119,52 @@ public class SightDbRepos
             Item = item
         };
     }
+
+    public async Task<ResponsePageDto<ISight>> ReadSightsNoReviewAsync(bool seeded, bool flat, int pageNumber, int pageSize)
+    {
+        IQueryable<SightDbM> query;
+        if (flat)
+        {
+            query = _dbContext.Sights.AsNoTracking();
+        }
+        else
+        {
+            query = _dbContext.Sights
+            .Include(s => s.AddressDbM)
+                .ThenInclude(a => a.CityDbM)
+                    .ThenInclude(c => c.CountryDbM)
+            .Include(s => s.CategoryDbMs)
+            .Include(s => s.ReviewDbMs)
+                .ThenInclude(r => r.UserDbM)
+            .AsNoTracking();
+        }
+        var ret = new ResponsePageDto<ISight>()
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
+
+            DbItemsCount = await query
+            .Where(i => i.Seeded == seeded && !i.ReviewDbMs.Any())
+            .CountAsync(),
+
+            PageItems = await query
+            .Where(i => i.Seeded == seeded && !i.ReviewDbMs.Any())
+            
+
+           .Skip(pageNumber * pageSize)
+           .Take(pageSize)
+           .ToListAsync<ISight>(),
+
+            PageNr = pageNumber,
+            PageSize = pageSize
+
+
+        };
+        return ret;
+    }
+
+
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {
         _logger = logger;

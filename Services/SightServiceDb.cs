@@ -18,6 +18,8 @@ public class SightServiceDb : ISightService
 
     public Task<ResponseItemDto<ISight>> DeleteSightAsync(Guid id) => _repo.DeleteSightAsync(id);
 
+    public Task<ResponsePageDto<ISight>> ReadSightsNoReviewAsync(bool seeded, bool flat, int pageNumber, int pageSize) => _repo.ReadSightsNoReviewAsync(seeded, flat, pageNumber, pageSize);
+
 
     #region constructors
     public SightServiceDb(SightDbRepos repo)

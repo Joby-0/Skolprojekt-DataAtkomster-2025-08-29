@@ -11,6 +11,8 @@ public class User : IUser, ISeed<User>
     public virtual string Email { get; set; }
     public virtual bool Seeded { get; set; }
 
+    public virtual List<IReview> Reviews { get; set; }
+
     public User Seed(SeedGenerator seedGenerator)
     {
         Seeded = true;

@@ -20,6 +20,12 @@ public class UserDbM : User, ISeed<UserDbM>
     public override string LastName { get; set; }
     [Required]
     public override string Email { get; set; }
+    
+    [NotMapped]
+    public override List<IReview> Reviews { get => ReviewDbMs?.ToList<IReview>(); set => new NotImplementedException(); }
+
+    [JsonIgnore]
+    public List<ReviewDbM> ReviewDbMs { get; set; }
 
 
 

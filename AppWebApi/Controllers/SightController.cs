@@ -71,12 +71,16 @@ public class SightController : Controller
     [HttpGet()]
     [ActionName("Sightsnoreview")]
     [ProducesResponseType(200)]
-    public IActionResult NoReview()
+    public async Task<IActionResult> NoReview(string seeded = "true", string flat = "true", string pageNumber = "0", string pageSize = "10")
     {
         try
         {
-
-            return Ok(new SeedGenerator().RandomCategory());
+            bool seededArg = bool.Parse(seeded);
+            bool flatArg = bool.Parse(flat);
+            int pageNrArg = int.Parse(pageNumber);
+            int pageSizeArg = int.Parse(pageSize);
+            var sights = await _service.ReadSightsNoReviewAsync(seededArg, flatArg, pageNrArg, pageSizeArg);
+            return Ok(sights);
         }
         catch (Exception ex)
         {
@@ -90,7 +94,7 @@ public class SightController : Controller
     [HttpDelete("{Id}")]
     [ActionName("DeleteItem")]
     [ProducesResponseType(200)]
-    public Task<IActionResult> RemoveSight(string Id)
+    public async Task<IActionResult> RemoveSight(string Id)
     {
         try
         {
