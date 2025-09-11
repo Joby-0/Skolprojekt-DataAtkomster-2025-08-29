@@ -2,5 +2,5 @@ namespace Services;
 
 public interface IUserService
 {
-    public Task SeedAsync(string nrOfItems);
+    // public Task SeedAsync(string nrOfItems);
 }

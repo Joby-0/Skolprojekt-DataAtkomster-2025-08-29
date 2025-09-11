@@ -25,10 +25,15 @@ public class AdminDbRepos
 
         var users = seeder.ItemsToList<UserDbM>(50);
         var reviews = seeder.ItemsToList<ReviewDbM>(400);
-        var cities = seeder.UniqueItemsToList<CityDbM>(nrOfItemsInt / 3);
+        var cities = seeder.UniqueItemsToList<CityDbM>(nrOfItemsInt / 2);
         var countries = seeder.UniqueItemsToList<CountryDbM>(nrOfItemsInt / 10);
         var addresses = seeder.UniqueItemsToList<AddressDbM>(nrOfItemsInt);
         var sights = seeder.ItemsToList<SightDbM>(nrOfItemsInt);
+
+        foreach (var review in reviews)
+        {
+            review.UserDbM = seeder.FromList(users);
+        }
 
         foreach (var city in cities)
         {
@@ -44,8 +49,9 @@ public class AdminDbRepos
         foreach (var sight in sights)
         {
             sight.AddressDbM = seeder.FromList(addresses);
-            sight.CategoryDbM = seeder.ItemsToList<CategoryDbM>(seeder.Next(1, 5));
-            
+            sight.CategoryDbMs = seeder.ItemsToList<CategoryDbM>(seeder.Next(1, 5));
+            sight.ReviewDbMs = seeder.UniqueItemsPickedFromList(seeder.Next(0, 5), reviews);
+
         }
         _dbContext.Sights.AddRange(sights);
 

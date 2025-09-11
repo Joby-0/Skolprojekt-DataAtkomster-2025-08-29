@@ -12,6 +12,7 @@ public class Sight : ISight, ISeed<Sight>
 
     //en sight kan ha flera categories eller ingen
     public virtual List<ICategory> Categories { get; set; } = null;
+    public virtual List<IReview> Reviews { get; set; } = null;
     public bool Seeded { get; set; }
 
     public Sight Seed(SeedGenerator seedGenerator)

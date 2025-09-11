@@ -9,7 +9,7 @@ public class UserServiceDb : IUserService
     private readonly SightDbRepos _repo = null;
     private readonly ILogger<UserServiceDb> _logger = null;
 
-    public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
+    // public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
 
     #region constructors
     public UserServiceDb(SightDbRepos repo)

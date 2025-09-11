@@ -28,13 +28,17 @@ public class SightDbM : Sight, ISeed<SightDbM>
     public AddressDbM AddressDbM { get; set; }
 
     [NotMapped]
-    public override List<ICategory> Categories { get => CategoryDbM?.ToList<ICategory>(); set => new NotImplementedException(); }
+    public override List<ICategory> Categories { get => CategoryDbMs?.ToList<ICategory>(); set => new NotImplementedException(); }
 
     // [ForeignKey("CategoryId")]
     [JsonIgnore]
-    public List<CategoryDbM> CategoryDbM { get; set; }
+    public List<CategoryDbM> CategoryDbMs { get; set; }
 
+    [NotMapped]
+    public override List<IReview> Reviews { get => ReviewDbMs?.ToList<IReview>(); set => new NotImplementedException(); }
 
+    [JsonIgnore]
+    public List<ReviewDbM> ReviewDbMs { get; set; }
 
     SightDbM ISeed<SightDbM>.Seed(SeedGenerator seedGenerator)
     {

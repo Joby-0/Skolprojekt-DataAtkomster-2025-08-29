@@ -6,9 +6,10 @@ using Joby.Utilities.SeedGenerator;
 using Models;
 
 namespace DbModels;
+
 [Table("Reviews", Schema = "supusr")]
 
-public class ReviewDbM : Review, ISeed<ReviewDbM>
+public class ReviewDbM : Review, ISeed<ReviewDbM>, IEquatable<ReviewDbM>
 {
     [Key]
     public override Guid ReviewId { get; set; }
@@ -24,7 +25,7 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>
     public Guid? UserId { get; set; }
 
     [NotMapped]
-    public override ISight Sight { get => SightDbM; set => new NotImplementedException(); }        
+    public override ISight Sight { get => SightDbM; set => new NotImplementedException(); }
 
     [ForeignKey("SightId")]
     [JsonIgnore]
@@ -32,7 +33,7 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>
     public SightDbM SightDbM { get; set; }
 
     [NotMapped]
-    public override IUser User { get => UserDbM; set => new NotImplementedException(); }   
+    public override IUser User { get => UserDbM; set => new NotImplementedException(); }
 
     [ForeignKey("UserId")]
     [JsonIgnore]
@@ -46,4 +47,11 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>
         base.Seed(seedGenerator);
         return this;
     }
+        #region implementing IEquatable
+    public bool Equals(ReviewDbM other) => (other != null) && ((Rating, Comment, Created_at, User) ==
+        (other.Rating, other.Comment, other.Created_at,other.User));
+
+    public override bool Equals(object obj) => Equals(obj as ReviewDbM);
+    public override int GetHashCode() => (Rating, Comment, Created_at, User).GetHashCode();
+    #endregion
 }

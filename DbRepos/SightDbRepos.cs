@@ -18,37 +18,7 @@ public class SightDbRepos
     // private Encryptions _encryptions;
     private readonly MainDbContext _dbContext;
 
-    public async Task SeedAsync(string nrOfItems)
-    {
-        int nrOfItemsInt = int.Parse(nrOfItems);
-        var seeder = new SeedGenerator();
 
-
-        var cities = seeder.UniqueItemsToList<CityDbM>(nrOfItemsInt / 3);
-        var countries = seeder.UniqueItemsToList<CountryDbM>(nrOfItemsInt / 10);
-        var addresses = seeder.UniqueItemsToList<AddressDbM>(nrOfItemsInt);
-        var sights = seeder.ItemsToList<SightDbM>(nrOfItemsInt);
-
-        foreach (var city in cities)
-        {
-            city.CountryDbM = seeder.FromList(countries);
-        }
-
-        foreach (var address in addresses)
-        {
-            address.CityDbM = seeder.FromList(cities);
-        }
-
-
-        foreach (var sight in sights)
-        {
-            sight.AddressDbM = seeder.FromList(addresses);
-            sight.CategoryDbM = seeder.ItemsToList<CategoryDbM>(seeder.Next(1, 5));
-        }
-        _dbContext.Sights.AddRange(sights);
-
-        await _dbContext.SaveChangesAsync();
-    }
     public async Task<ResponsePageDto<ISight>> ReadSightsAsync(bool seeded, bool flat, string filter, int pageNumber, int pageSize)
     {
         filter ??= "";
@@ -60,11 +30,13 @@ public class SightDbRepos
         else
         {
             query = _dbContext.Sights
-                .Include(s => s.AddressDbM)
-                .Include(s => s.CategoryDbM)
-                .Include(s => s.AddressDbM.CityDbM)
-                .Include(s => s.AddressDbM.CityDbM.CountryDbM)
-                .AsNoTracking();
+            .Include(s => s.AddressDbM)
+                .ThenInclude(a => a.CityDbM)
+                    .ThenInclude(c => c.CountryDbM)
+            .Include(s => s.CategoryDbMs)
+            .Include(s => s.ReviewDbMs)
+                .ThenInclude(r => r.UserDbM)
+            .AsNoTracking();
         }
 
         var ret = new ResponsePageDto<ISight>()
@@ -79,7 +51,7 @@ public class SightDbRepos
              && i.AddressDbM.Street.ToLower().Contains(filter)
              || i.AddressDbM.CityDbM.CityName.ToLower().Contains(filter)
              || i.AddressDbM.CityDbM.CountryDbM.CountryName.ToLower().Contains(filter)).CountAsync(),
-           
+
             PageItems = await query
 
             .Where(i => (i.Seeded == seeded)
@@ -93,8 +65,8 @@ public class SightDbRepos
 
             PageNr = pageNumber,
             PageSize = pageSize
-            
-             
+
+
         };
         return ret;
     }

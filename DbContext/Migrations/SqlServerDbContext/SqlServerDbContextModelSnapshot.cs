@@ -245,7 +245,7 @@ namespace DbContext.Migrations.SqlServerDbContext
             modelBuilder.Entity("DbModels.ReviewDbM", b =>
                 {
                     b.HasOne("DbModels.SightDbM", "SightDbM")
-                        .WithMany()
+                        .WithMany("ReviewDbMs")
                         .HasForeignKey("SightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -268,6 +268,11 @@ namespace DbContext.Migrations.SqlServerDbContext
                         .HasForeignKey("AddressId");
 
                     b.Navigation("AddressDbM");
+                });
+
+            modelBuilder.Entity("DbModels.SightDbM", b =>
+                {
+                    b.Navigation("ReviewDbMs");
                 });
 #pragma warning restore 612, 618
         }

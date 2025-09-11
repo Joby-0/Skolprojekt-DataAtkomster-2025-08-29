@@ -11,7 +11,7 @@ public class SightServiceDb : ISightService
     private readonly SightDbRepos _repo = null;
     private readonly ILogger<SightServiceDb> _logger = null;
 
-    public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
+    // public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
     public Task<ResponsePageDto<ISight>> ReadSightsAsync(bool seeded, bool flat, string filter, int pageNumber, int pageSize) => _repo.ReadSightsAsync(seeded, flat,filter,pageNumber, pageSize);
 
 
