@@ -71,7 +71,54 @@ public class SightDbRepos
         return ret;
     }
 
+    public async Task<ResponseItemDto<ISight>> ReadSightAsync(Guid id, bool flat)
+    {
+        IQueryable<SightDbM> query;
+        if (flat)
+        {
+            query = _dbContext.Sights.AsNoTracking();
+        }
+        else
+        {
+            query = _dbContext.Sights
+            .Include(s => s.AddressDbM)
+                .ThenInclude(a => a.CityDbM)
+                    .ThenInclude(c => c.CountryDbM)
+            .Include(s => s.CategoryDbMs)
+            .Include(s => s.ReviewDbMs)
+                .ThenInclude(r => r.UserDbM)
+            .AsNoTracking();
+        }
+        var ret = new ResponseItemDto<ISight>()
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
 
+            Item = await query.FirstOrDefaultAsync(i => i.SightId == id)
+
+
+        };
+        return ret;
+
+    }
+
+    public async Task<ResponseItemDto<ISight>> DeleteSightAsync(Guid id)
+    {
+        var query = _dbContext.Sights
+            .Where(i => i.SightId == id);
+        var item = await query.FirstOrDefaultAsync<SightDbM>();
+
+        _dbContext.Sights.Remove(item);
+        await _dbContext.SaveChangesAsync();
+        return new ResponseItemDto<ISight>()
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
+            Item = item
+        };
+    }
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {
         _logger = logger;

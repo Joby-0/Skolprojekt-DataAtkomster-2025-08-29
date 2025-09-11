@@ -14,6 +14,10 @@ public class SightServiceDb : ISightService
     // public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
     public Task<ResponsePageDto<ISight>> ReadSightsAsync(bool seeded, bool flat, string filter, int pageNumber, int pageSize) => _repo.ReadSightsAsync(seeded, flat,filter,pageNumber, pageSize);
 
+    public Task<ResponseItemDto<ISight>> ReadSightAsync(Guid id, bool flat) => _repo.ReadSightAsync(id, flat);
+
+    public Task<ResponseItemDto<ISight>> DeleteSightAsync(Guid id) => _repo.DeleteSightAsync(id);
+
 
     #region constructors
     public SightServiceDb(SightDbRepos repo)

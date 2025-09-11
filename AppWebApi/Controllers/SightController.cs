@@ -23,7 +23,7 @@ public class SightController : Controller
 
     }
     [HttpGet()]
-    [ActionName("AllSights")]
+    [ActionName("Read")]
     [ProducesResponseType(200, Type = typeof(ResponsePageDto<ISight>))]
     public async Task<IActionResult> AllSights(string seeded = "true", string flat = "true", string filter = null, string pageNumber = "0", string pageSize = "10")
     {
@@ -45,6 +45,27 @@ public class SightController : Controller
         }
     }
 
+    [HttpGet()]
+    [ActionName("ReadItem")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> Sight(string Id, string flat = "false")
+    {
+        try
+        {
+            var idArg = Guid.Parse(Id);
+            var flatArg = bool.Parse(flat);
+
+            var sight = await _service.ReadSightAsync(idArg, flatArg);
+            return Ok(sight);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 
 
     [HttpGet()]
@@ -65,31 +86,18 @@ public class SightController : Controller
     }
 
 
-    [HttpGet()]
-    [ActionName("Sight")]
+
+    [HttpDelete("{Id}")]
+    [ActionName("DeleteItem")]
     [ProducesResponseType(200)]
-    public IActionResult Sight(string SightId)
+    public Task<IActionResult> RemoveSight(string Id)
     {
         try
         {
-            return Ok(new SeedGenerator().RandomCategory());
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"{nameof(Environment)}: {ex.Message}");
-            return BadRequest(ex.Message);
-        }
-    }
+            var idArg = Guid.Parse(Id);
 
-
-    [HttpDelete("{SightId}")]
-    [ActionName("RemoveSight")]
-    [ProducesResponseType(200)]
-    public IActionResult RemoveSight(string SightId)
-    {
-        try
-        {
-            return Ok(new SeedGenerator().Sight());
+            var sight = await _service.DeleteSightAsync(idArg);
+            return Ok(sight);
         }
         catch (Exception ex)
         {
