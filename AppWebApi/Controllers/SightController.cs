@@ -21,6 +21,7 @@ public class SightController : Controller
         _service = service;
 
     }
+   
     [HttpGet()]
     [ActionName("Read")]
     [ProducesResponseType(200, Type = typeof(ResponsePageDto<ISight>))]
@@ -46,7 +47,7 @@ public class SightController : Controller
 
     [HttpGet("{Id}")]
     [ActionName("ReadItem")]
-    [ProducesResponseType(200)]
+    [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
     public async Task<IActionResult> Sight(string Id, string flat = "false")
     {
         try
@@ -67,7 +68,7 @@ public class SightController : Controller
 
     [HttpGet()]
     [ActionName("Sightsnoreview")]
-    [ProducesResponseType(200)]
+    [ProducesResponseType(200, Type = typeof(ResponsePageDto<ISight>))]
     public async Task<IActionResult> NoReview(string seeded = "true", string flat = "true", string pageNumber = "0", string pageSize = "10")
     {
         try
@@ -93,7 +94,7 @@ public class SightController : Controller
 
     [HttpPut("{Id}")]
     [ActionName("UpdateItem")]
-    [ProducesResponseType(200)]
+    [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
     public async Task<IActionResult> UpdateSight(string Id)
     {
         try
@@ -112,7 +113,7 @@ public class SightController : Controller
 
     [HttpPost()]
     [ActionName("CreateItem")]
-    [ProducesResponseType(200)]
+    [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
     public async Task<IActionResult> CreateSight(string Id)
     {
         try
@@ -131,7 +132,7 @@ public class SightController : Controller
 
     [HttpDelete("{Id}")]
     [ActionName("DeleteItem")]
-    [ProducesResponseType(200)]
+    [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
     public async Task<IActionResult> RemoveSight(string Id)
     {
         try
