@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 
 using Models;
+using Models.DTO;
 
 namespace DbModels;
 
@@ -20,7 +21,7 @@ public class UserDbM : User, ISeed<UserDbM>
     public override string LastName { get; set; }
     [Required]
     public override string Email { get; set; }
-    
+
     [NotMapped]
     public override List<IReview> Reviews { get => ReviewDbMs?.ToList<IReview>(); set => new NotImplementedException(); }
 
@@ -34,4 +35,25 @@ public class UserDbM : User, ISeed<UserDbM>
         base.Seed(seedGenerator);
         return this;
     }
+
+    #region Update from DTO
+    public UserDbM UpdateFromDTO(UserCuDto org)
+    {
+        FirstName = org.FirstName;
+        LastName = org.LastName;
+        Email = org.Email;
+
+        return this;
+    }
+    #endregion
+
+    #region constructors
+    public UserDbM() { }
+    public UserDbM(UserCuDto org)
+    {
+        UserId = Guid.NewGuid();
+        UpdateFromDTO(org);
+    }
+    #endregion
+
 }

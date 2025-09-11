@@ -1,6 +1,6 @@
 namespace Models.DTO;
 
-public class SightDto
+public class SightCuDto
 {
     public Guid? SightId { get; set; }
 
@@ -11,7 +11,7 @@ public class SightDto
     public List<Guid> CategoriesId { get; set; }
     public List<Guid> ReviewsId { get; set; }
 }
-public class UserDto
+public class UserCuDto
 {
     public Guid UserId { get; set; }
     public string FirstName { get; set; }

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 // using System.Text.Json.Serialization;
 using Joby.Utilities.SeedGenerator;
 using Models;
+using Models.DTO;
 using Newtonsoft.Json;
 
 namespace DbModels;
@@ -20,7 +21,7 @@ public class SightDbM : Sight, ISeed<SightDbM>
     // public Guid? CategoryId { get; set; }
 
     [NotMapped]
-    
+
     public override IAddress Address { get => AddressDbM; set => new NotImplementedException(); }
 
     [ForeignKey("AddressId")]
@@ -45,4 +46,23 @@ public class SightDbM : Sight, ISeed<SightDbM>
         base.Seed(seedGenerator);
         return this;
     }
+
+    #region Update from DTO
+    public SightDbM UpdateFromDTO(SightCuDto org)
+    {
+        SightName = org.SightName;
+        Description = org.Description;
+
+        return this;
+    }
+    #endregion
+    #region constructors
+    public SightDbM() { }
+    public SightDbM(SightCuDto org)
+    {
+        SightId = Guid.NewGuid();
+        UpdateFromDTO(org);
+    }
+    #endregion
+
 }
