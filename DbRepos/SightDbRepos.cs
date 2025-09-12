@@ -120,6 +120,26 @@ public class SightDbRepos
         };
     }
 
+    public async Task<ResponseItemDto<ISight>> UpdateSightAsync(SightCuDto sightCuDto)
+    {
+        var query1 = _dbContext.Sights.Where(s => s.SightId == sightCuDto.SightId);
+        var item = await query1
+        .Include(i => i.AddressDbM)
+        .Include(i => i.CategoryDbMs)
+        .Include(i => i.ReviewDbMs)
+        .FirstOrDefaultAsync<SightDbM>();
+
+        item.UpdateFromDTO(sightCuDto);
+        
+        await navProp_FriendCUdto_to_FriendDbM(sightCuDto, item);
+
+        _dbContext.Sights.Update(item);
+
+        await _dbContext.SaveChangesAsync();
+
+        return await ReadSightAsync(item.SightId, false);
+    }
+
     public async Task<ResponsePageDto<ISight>> ReadSightsNoReviewAsync(bool seeded, bool flat, int pageNumber, int pageSize)
     {
         IQueryable<SightDbM> query;
@@ -150,7 +170,7 @@ public class SightDbRepos
 
             PageItems = await query
             .Where(i => i.Seeded == seeded && !i.ReviewDbMs.Any())
-            
+
 
            .Skip(pageNumber * pageSize)
            .Take(pageSize)
@@ -164,11 +184,52 @@ public class SightDbRepos
         return ret;
     }
 
-    
+
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {
         _logger = logger;
         // _encryptions = encryptions;
         _dbContext = context;
     }
+
+
+    private async Task navProp_FriendCUdto_to_FriendDbM(SightCuDto itemDtoSrc, SightDbM itemDst)
+    {
+        //update AddressDbM from itemDto.AddressId
+        itemDst.AddressDbM = (itemDtoSrc.AddressId != null) ? await _dbContext.Addresses.FirstOrDefaultAsync(
+            a => (a.AddressId == itemDtoSrc.AddressId)) : null;
+
+        //update ReviewsDbM from itemDto.ReviewsId list
+        List<ReviewDbM> reviews = null;
+        if (itemDtoSrc.ReviewsId != null)
+        {
+            reviews = new List<ReviewDbM>();
+            foreach (var id in itemDtoSrc.ReviewsId)
+            {
+                var p = await _dbContext.Reviews.FirstOrDefaultAsync(i => i.ReviewId == id);
+                if (p == null)
+                    throw new ArgumentException($"Item id {id} not existing");
+
+                reviews.Add(p);
+            }
+        }
+        itemDst.ReviewDbMs = reviews;
+
+        //update Categories from itemDto.CategoryId
+        List<CategoryDbM> categories = null;
+        if (itemDtoSrc.CategoriesId != null)
+        {
+            categories = new List<CategoryDbM>();
+            foreach (var id in itemDtoSrc.CategoriesId)
+            {
+                var q = await _dbContext.Categories.FirstOrDefaultAsync(i => i.CategoryId == id);
+                if (q == null)
+                    throw new ArgumentException($"Item id {id} not existing");
+
+                categories.Add(q);
+            }
+        }
+        itemDst.CategoryDbMs = categories;
+    }
+
 }

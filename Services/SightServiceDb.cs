@@ -20,6 +20,8 @@ public class SightServiceDb : ISightService
 
     public Task<ResponsePageDto<ISight>> ReadSightsNoReviewAsync(bool seeded, bool flat, int pageNumber, int pageSize) => _repo.ReadSightsNoReviewAsync(seeded, flat, pageNumber, pageSize);
 
+    public Task<ResponseItemDto<ISight>> UpdateSightAsync(SightCuDto sightCuDto) => _repo.UpdateSightAsync(sightCuDto);
+
 
     #region constructors
     public SightServiceDb(SightDbRepos repo)

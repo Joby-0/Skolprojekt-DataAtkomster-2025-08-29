@@ -21,7 +21,7 @@ public class SightController : Controller
         _service = service;
 
     }
-   
+
     [HttpGet()]
     [ActionName("Read")]
     [ProducesResponseType(200, Type = typeof(ResponsePageDto<ISight>))]
@@ -89,19 +89,49 @@ public class SightController : Controller
 
 
 
-
-
-
-    [HttpPut("{Id}")]
-    [ActionName("UpdateItem")]
-    [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
-    public async Task<IActionResult> UpdateSight(string Id)
+    [HttpGet()]
+    [ActionName("ReadItemDto")]
+    [ProducesResponseType(200, Type = typeof(SightCuDto))]
+    public async Task<IActionResult> ReadItemDto(string id = null)
     {
         try
         {
-            var idArg = Guid.Parse(Id);
+            var idArg = Guid.Parse(id);
 
-            var sight = await _service.DeleteSightAsync(idArg);
+            _logger.LogInformation($"{nameof(ReadItemDto)}: {nameof(idArg)}: {idArg}");
+
+            var item = await _service.ReadSightAsync(idArg, false);
+            if (item == null) throw new ArgumentException($"Item with id {id} does not exist");
+
+            return Ok(
+                new ResponseItemDto<SightCuDto>()
+                {
+#if DEBUG
+                    ConnectionString = item.ConnectionString,
+#endif
+                    Item = new SightCuDto(item.Item)
+                });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(ReadItemDto)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpPut("{id}")]
+    [ActionName("UpdateItem")]
+    [ProducesResponseType(200, Type = typeof(ISight))]
+    public async Task<IActionResult> UpdateSight(string id, [FromBody] SightCuDto sightCuDto)
+    {
+        try
+        {
+            var idArg = Guid.Parse(id);
+
+            if (sightCuDto.SightId != idArg) throw new ArgumentException("Id mismatch");
+
+            var sight = await _service.UpdateSightAsync(sightCuDto);
             return Ok(sight);
         }
         catch (Exception ex)
