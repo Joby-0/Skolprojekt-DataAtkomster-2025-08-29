@@ -25,8 +25,8 @@ public class AdminDbRepos
 
         var users = seeder.ItemsToList<UserDbM>(50);
         var reviews = seeder.ItemsToList<ReviewDbM>(400);
-        var cities = seeder.UniqueItemsToList<CityDbM>(nrOfItemsInt / 2);
-        var countries = seeder.UniqueItemsToList<CountryDbM>(nrOfItemsInt / 10);
+        var cities = seeder.UniqueItemsToList<CityDbM>(100);
+        var countries = seeder.UniqueItemsToList<CountryDbM>(25);
         var addresses = seeder.UniqueItemsToList<AddressDbM>(nrOfItemsInt);
         var sights = seeder.ItemsToList<SightDbM>(nrOfItemsInt);
 
@@ -58,6 +58,36 @@ public class AdminDbRepos
         await _dbContext.SaveChangesAsync();
     }
 
+
+    public async Task<ResponseItemDto<GstUsrInfoAllDto>> InfoAsync() => await DbInfo();
+
+    private async Task<ResponseItemDto<GstUsrInfoAllDto>> DbInfo()
+    {
+        var info = new GstUsrInfoAllDto();
+        info.Db = new GstUsrInfoDbDto
+        {
+            NrSeededSights = await _dbContext.Sights.Where(s => s.Seeded).CountAsync(),
+            NrUnseededSights = await _dbContext.Sights.Where(s => !s.Seeded).CountAsync(),
+
+            NrSeededCountries = await _dbContext.Countries.Where(c => c.Seeded).CountAsync(),
+            NrUnseededCountries = await _dbContext.Countries.Where(c => !c.Seeded).CountAsync(),
+
+            NrSeededCities = await _dbContext.Cities.Where(c => c.Seeded).CountAsync(),
+            NrUnseededCities = await _dbContext.Cities.Where(c => !c.Seeded).CountAsync(),
+
+            NrSeededUsers = await _dbContext.Users.Where(u => u.Seeded).CountAsync(),
+            NrUnseededUsers = await _dbContext.Users.Where(u => !u.Seeded).CountAsync(),
+        };
+
+        return new ResponseItemDto<GstUsrInfoAllDto>
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
+
+            Item = info
+        };
+    }
 
     public AdminDbRepos(ILogger<AdminDbRepos> logger, MainDbContext context)
     {

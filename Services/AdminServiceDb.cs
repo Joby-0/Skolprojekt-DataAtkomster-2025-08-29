@@ -14,6 +14,9 @@ public class AdminServiceDb : IAdminService
 
     public Task SeedAsync(string nrOfItems) => _repo.SeedAsync(nrOfItems);
 
+    public Task<ResponseItemDto<GstUsrInfoAllDto>> DbInfo() => _repo.InfoAsync();
+
+
 
 
 

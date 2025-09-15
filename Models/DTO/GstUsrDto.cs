@@ -2,18 +2,18 @@
 
 public class GstUsrInfoDbDto
 {
-    public int NrSeededFriends { get; set; } = 0;
-    public int NrUnseededFriends { get; set; } = 0;
-    public int NrFriendsWithAddress { get; set; } = 0;
+    public int NrSeededUsers { get; set; } = 0;
+    public int NrUnseededUsers { get; set; } = 0;
 
-    public int NrSeededAddresses { get; set; } = 0;
-    public int NrUnseededAddresses { get; set; } = 0;
+    public int NrSeededSights { get; set; } = 0;
+    public int NrUnseededSights { get; set; } = 0;
 
-    public int NrSeededPets { get; set; } = 0;
-    public int NrUnseededPets { get; set; } = 0;
+    public int NrSeededCountries { get; set; } = 0;
+    public int NrUnseededCountries { get; set; } = 0;
 
-    public int NrSeededQuotes { get; set; } = 0;
-    public int NrUnseededQuotes { get; set; } = 0;
+    public int NrSeededCities { get; set; } = 0;
+    public int NrUnseededCities { get; set; } = 0;
+
 }
 
 public class GstUsrInfoFriendsDto
@@ -39,9 +39,7 @@ public class GstUsrInfoQuotesDto
 public class GstUsrInfoAllDto
 {
     public GstUsrInfoDbDto Db { get; set; } = null;
-    public List<GstUsrInfoFriendsDto> Friends { get; set; } = null;
-    public List<GstUsrInfoPetsDto> Pets { get; set; } = null;
-    public List<GstUsrInfoQuotesDto> Quotes { get; set; } = null;
+
 }
 
 

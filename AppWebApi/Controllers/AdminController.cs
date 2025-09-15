@@ -14,7 +14,6 @@ public class AdminController : Controller
     readonly IAdminService _service;
 
     private readonly SeedGenerator _seeder = new SeedGenerator();
-    // private readonly ISightService sightService;
 
     public AdminController(ILogger<AdminController> logger, IAdminService service)
     {
@@ -34,6 +33,23 @@ public class AdminController : Controller
             await _service.SeedAsync(nrOfItems);
 
             return Ok("Seeding completed successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Seed)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpGet()]
+    [ActionName("DbInfo")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> DbInfo()
+    {
+        try
+        {
+            // _logger.LogInformation($"{nameof(Seed)}");
+
+            return Ok(await _service.DbInfo());
         }
         catch (Exception ex)
         {
