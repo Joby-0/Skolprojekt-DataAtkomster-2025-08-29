@@ -8,6 +8,9 @@ public class GstUsrInfoDbDto
     public int NrSeededSights { get; set; } = 0;
     public int NrUnseededSights { get; set; } = 0;
 
+    public int NrSeededSightsNoReview { get; set; } = 0;
+    public int NrSeededReviews { get; set; } = 0;
+
     public int NrSeededCountries { get; set; } = 0;
     public int NrUnseededCountries { get; set; } = 0;
 

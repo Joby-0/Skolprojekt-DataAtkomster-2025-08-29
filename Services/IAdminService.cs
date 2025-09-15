@@ -7,6 +7,7 @@ public interface IAdminService
 {
     public Task SeedAsync(string nrOfItems);
     public Task<ResponseItemDto<GstUsrInfoAllDto>> DbInfo();
+    public Task RemoveSeedAsync();
 
 }
 

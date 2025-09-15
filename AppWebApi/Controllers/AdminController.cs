@@ -40,6 +40,7 @@ public class AdminController : Controller
             return BadRequest(ex.Message);
         }
     }
+
     [HttpGet()]
     [ActionName("DbInfo")]
     [ProducesResponseType(200)]
@@ -50,6 +51,26 @@ public class AdminController : Controller
             // _logger.LogInformation($"{nameof(Seed)}");
 
             return Ok(await _service.DbInfo());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(Seed)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpDelete()]
+    [ActionName("RemoceSeeded")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> RemoveSeed()
+    {
+        try
+        {
+            _logger.LogInformation($"{nameof(Seed)}");
+            await _service.RemoveSeedAsync();
+
+            return Ok("Remove seeding completed successfully");
         }
         catch (Exception ex)
         {
