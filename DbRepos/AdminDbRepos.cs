@@ -67,19 +67,19 @@ public class AdminDbRepos
         info.Db = new GstUsrInfoDbDto
         {
             NrSeededSights = await _dbContext.Sights.Where(s => s.Seeded).CountAsync(),
-            // NrUnseededSights = await _dbContext.Sights.Where(s => !s.Seeded).CountAsync(),
+            NrUnseededSights = await _dbContext.Sights.Where(s => !s.Seeded).CountAsync(),
             NrSeededSightsNoReview = await _dbContext.Sights.Where(s => !s.ReviewDbMs.Any()).CountAsync(),
 
             NrSeededReviews = await _dbContext.Reviews.Where(r => r.Seeded).CountAsync(),
 
             NrSeededCountries = await _dbContext.Countries.Where(c => c.Seeded).CountAsync(),
-            // NrUnseededCountries = await _dbContext.Countries.Where(c => !c.Seeded).CountAsync(),
+            NrUnseededCountries = await _dbContext.Countries.Where(c => !c.Seeded).CountAsync(),
 
             NrSeededCities = await _dbContext.Cities.Where(c => c.Seeded).CountAsync(),
-            // NrUnseededCities = await _dbContext.Cities.Where(c => !c.Seeded).CountAsync(),
+            NrUnseededCities = await _dbContext.Cities.Where(c => !c.Seeded).CountAsync(),
 
             NrSeededUsers = await _dbContext.Users.Where(u => u.Seeded).CountAsync(),
-            // NrUnseededUsers = await _dbContext.Users.Where(u => !u.Seeded).CountAsync(),
+            NrUnseededUsers = await _dbContext.Users.Where(u => !u.Seeded).CountAsync(),
         };
 
         return new ResponseItemDto<GstUsrInfoAllDto>

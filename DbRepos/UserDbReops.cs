@@ -91,7 +91,7 @@ public class UserDbRepos
             .Where(i => i.UserId == id);
         var item = await query.FirstOrDefaultAsync<UserDbM>();
 
-        
+
 
 
 
@@ -107,11 +107,47 @@ public class UserDbRepos
         };
     }
 
+    public async Task<ResponseItemDto<IUser>> CreateUserAsync(UserCuDto UserCuDto)
+    {
+        if (UserCuDto.UserId != null)
+            throw new ArgumentException($"{nameof(UserCuDto.UserId)} must be null when creating a new object");
 
+        var item = new UserDbM(UserCuDto);
+
+        await navProp_UsersCUdto_to_UsersDbM(UserCuDto, item);
+
+        _dbContext.Users.Add(item);
+
+        await _dbContext.SaveChangesAsync();
+
+        return null;
+    }
     public UserDbRepos(ILogger<UserDbRepos> logger, MainDbContext context)
     {
         _logger = logger;
         // _encryptions = encryptions;
         _dbContext = context;
+    }
+
+    private async Task navProp_UsersCUdto_to_UsersDbM(UserCuDto itemDtoSrc, UserDbM itemDst)
+    {
+
+        List<ReviewDbM> reviews = null;
+        if (itemDtoSrc.ReviewsId != null)
+        {
+            reviews = new List<ReviewDbM>();
+            foreach (var id in itemDtoSrc.ReviewsId)
+            {
+                var p = await _dbContext.Reviews.FirstOrDefaultAsync(i => i.ReviewId == id);
+                if (p == null)
+                    throw new ArgumentException($"Item id {id} not existing");
+
+                reviews.Add(p);
+            }
+        }
+        itemDst.ReviewDbMs = reviews;
+
+
+
     }
 }

@@ -10,4 +10,6 @@ public interface IUserService
 
     public Task<ResponseItemDto<IUser>> RemoveUserAsync(Guid id);
 
+    public Task<ResponseItemDto<IUser>> CreateUserAsync(UserCuDto UserCuDto);
+
 }

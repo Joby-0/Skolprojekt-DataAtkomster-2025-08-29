@@ -5,6 +5,7 @@ using Joby.Utilities.SeedGenerator;
 using Models;
 using Services;
 using System.Threading.Tasks;
+using Models.DTO;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -64,14 +65,15 @@ public class UserController : Controller
     }
     
     [HttpPost()]
-    [ActionName("AddUser")]
+    [ActionName("AddItem")]
     [ProducesResponseType(200)]
 
-    public IActionResult AddUser()
+    public async Task<IActionResult> AddUser([FromBody] UserCuDto userCuDto)
     {
         try
         {
-            return Ok(new SeedGenerator().ShortComment);
+            var user = await _service.CreateUserAsync(userCuDto);
+            return Ok(user);
         }
         catch (Exception ex)
         {
@@ -81,7 +83,7 @@ public class UserController : Controller
     }
 
     [HttpDelete("{Id}")]
-    [ActionName("RemoveUser")]
+    [ActionName("RemoveItem")]
     [ProducesResponseType(200)]
 
     public async Task<IActionResult> RemoveUser(string Id)

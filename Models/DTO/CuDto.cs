@@ -26,12 +26,23 @@ public class SightCuDto
 }
 public class UserCuDto
 {
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
 
     public List<Guid> ReviewsId { get; set; }
+
+    public UserCuDto() { }
+    public UserCuDto(IUser org)
+    {
+        UserId = org.UserId;
+        FirstName = org.FirstName;
+        LastName = org.LastName;
+        Email = org.Email;
+
+        ReviewsId = org?.Reviews.Select(i => i.ReviewId).ToList();
+    }
 }
 
 public class ReviewCuDto
