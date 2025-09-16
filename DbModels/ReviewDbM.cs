@@ -22,7 +22,7 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>, IEquatable<ReviewDbM>
     public Guid? SightId { get; set; }
 
     [JsonIgnore]
-    public Guid? UserId { get; set; }
+    public Guid?UserId { get; set; }
 
     [NotMapped]
     public override ISight Sight { get => SightDbM; set => new NotImplementedException(); }

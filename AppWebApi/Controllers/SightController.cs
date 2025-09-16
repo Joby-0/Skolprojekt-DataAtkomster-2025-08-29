@@ -144,13 +144,13 @@ public class SightController : Controller
     [HttpPost()]
     [ActionName("CreateItem")]
     [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]
-    public async Task<IActionResult> CreateSight(string Id)
+    public async Task<IActionResult> CreateSight([FromBody] SightCuDto sightCuDto)
     {
         try
         {
-            var idArg = Guid.Parse(Id);
 
-            var sight = await _service.DeleteSightAsync(idArg);
+            var sight = await _service.CreateSightAsync(sightCuDto);
+            
             return Ok(sight);
         }
         catch (Exception ex)

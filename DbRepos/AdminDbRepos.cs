@@ -70,7 +70,7 @@ public class AdminDbRepos
             // NrUnseededSights = await _dbContext.Sights.Where(s => !s.Seeded).CountAsync(),
             NrSeededSightsNoReview = await _dbContext.Sights.Where(s => !s.ReviewDbMs.Any()).CountAsync(),
 
-            NrSeededReviews = await _dbContext.Sights.Where(r => r.Seeded).CountAsync(),
+            NrSeededReviews = await _dbContext.Reviews.Where(r => r.Seeded).CountAsync(),
 
             NrSeededCountries = await _dbContext.Countries.Where(c => c.Seeded).CountAsync(),
             // NrUnseededCountries = await _dbContext.Countries.Where(c => !c.Seeded).CountAsync(),

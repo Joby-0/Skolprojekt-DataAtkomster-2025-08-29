@@ -22,6 +22,8 @@ public class SightServiceDb : ISightService
 
     public Task<ResponseItemDto<ISight>> UpdateSightAsync(SightCuDto sightCuDto) => _repo.UpdateSightAsync(sightCuDto);
 
+    public Task<ResponseItemDto<ISight>> CreateSightAsync(SightCuDto sightCuDto) => _repo.CreateSightAsync(sightCuDto);
+
 
     #region constructors
     public SightServiceDb(SightDbRepos repo)

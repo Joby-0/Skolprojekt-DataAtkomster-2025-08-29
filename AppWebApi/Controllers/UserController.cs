@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Joby.Utilities.SeedGenerator;
 using Models;
 using Services;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -79,15 +80,17 @@ public class UserController : Controller
         }
     }
 
-    [HttpDelete("{UserId}")]
+    [HttpDelete("{Id}")]
     [ActionName("RemoveUser")]
     [ProducesResponseType(200)]
 
-    public IActionResult RemoveUser(string UserId)
+    public async Task<IActionResult> RemoveUser(string Id)
     {
         try
         {
-            return Ok(new SeedGenerator().ShortComment);
+            var idArg = Guid.Parse(Id);
+            var item = await _service.RemoveUserAsync(idArg);
+            return Ok(item);
         }
         catch (Exception ex)
         {

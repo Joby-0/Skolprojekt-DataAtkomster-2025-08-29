@@ -91,6 +91,11 @@ public class UserDbRepos
             .Where(i => i.UserId == id);
         var item = await query.FirstOrDefaultAsync<UserDbM>();
 
+        
+
+
+
+        _dbContext.RemoveRange(_dbContext.Reviews.Where(r => r.UserId == id));
         _dbContext.Users.Remove(item);
         await _dbContext.SaveChangesAsync();
         return new ResponseItemDto<IUser>()

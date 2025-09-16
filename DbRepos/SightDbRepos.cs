@@ -109,6 +109,9 @@ public class SightDbRepos
             .Where(i => i.SightId == id);
         var item = await query.FirstOrDefaultAsync<SightDbM>();
 
+        _dbContext.RemoveRange(_dbContext.Reviews.Where(r => r.SightId == id));
+
+
         _dbContext.Sights.Remove(item);
         await _dbContext.SaveChangesAsync();
         return new ResponseItemDto<ISight>()
@@ -184,14 +187,24 @@ public class SightDbRepos
         return ret;
     }
 
+    public async Task<ResponseItemDto<ISight>> CreateSightAsync(SightCuDto sightCuDto)
+    {
+        var item = new SightDbM(sightCuDto);
 
+        await navProp_FriendCUdto_to_FriendDbM(sightCuDto, item);
+
+        _dbContext.Sights.Add(item);
+
+        await _dbContext.SaveChangesAsync();
+
+        return await ReadSightAsync(item.SightId, false);
+    }
     public SightDbRepos(ILogger<SightDbRepos> logger, MainDbContext context)
     {
         _logger = logger;
         // _encryptions = encryptions;
         _dbContext = context;
     }
-
 
     private async Task navProp_FriendCUdto_to_FriendDbM(SightCuDto itemDtoSrc, SightDbM itemDst)
     {

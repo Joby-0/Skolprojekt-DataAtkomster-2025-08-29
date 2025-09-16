@@ -61,7 +61,7 @@ public class AdminController : Controller
 
 
     [HttpDelete()]
-    [ActionName("RemoceSeeded")]
+    [ActionName("RemoveSeeded")]
     [ProducesResponseType(200)]
     public async Task<IActionResult> RemoveSeed()
     {
