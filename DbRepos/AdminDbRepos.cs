@@ -23,7 +23,7 @@ public class AdminDbRepos
         int nrOfItemsInt = int.Parse(nrOfItems);
         var seeder = new SeedGenerator();
 
-        var users = seeder.ItemsToList<UserDbM>(50);
+        var users = seeder.ItemsToList<UserDbM>(nrOfItemsInt);
         var reviews = seeder.ItemsToList<ReviewDbM>(nrOfItemsInt * 15);
         var cities = seeder.UniqueItemsToList<CityDbM>(100);
         var countries = seeder.UniqueItemsToList<CountryDbM>(25);

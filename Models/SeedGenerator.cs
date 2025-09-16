@@ -618,7 +618,7 @@ namespace Joby.Utilities.SeedGenerator
                 {
                         new SeedAddress {
                             jsonCountry = "Sweden",
-                            jsonCities = "Stockholm, Göteborg, Malmö, Uppsala, Linköping, Örebro",
+                            jsonCities = "Stockholm, Göteborg, Malmö, Uppsala, Linköping, Örebro, Falun, Borlänge, Avesta, Bollnäs, SöderHamn",
                             jsonStreets = "Svedjevägen, Ringvägen, Vasagatan, Odenplan, Birger Jarlsgatan, Äppelviksvägen, Kvarnbacksvägen"
                         },
                         new SeedAddress {
@@ -670,6 +670,37 @@ namespace Joby.Utilities.SeedGenerator
                             jsonCountry = "Italy",
                             jsonCities = "Rome, Milan, Naples, Turin, Palermo, Genoa, Bologna, Florence, Venice, Verona",
                             jsonStreets = "Via del Corso, Via dei Fori Imperiali, Via Nazionale, Via Veneto, Via Condotti, Corso Vittorio Emanuele II, Via Dante, Via Garibaldi, Via Roma, Via Po"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "England",
+                            jsonCities = "London, Manchester, Birmingham, Liverpool, Leeds, Newcastle, Bristol, Sheffield, Nottingham, Cambridge",
+                            jsonStreets = "Oxford Street, Regent Street, Baker Street, Piccadilly, Bond Street, Fleet Street, Downing Street, Abbey Road, High Street, King’s Road"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Spain",
+                            jsonCities = "Madrid, Barcelona, Valencia, Seville, Bilbao, Malaga, Zaragoza, Granada, Alicante, Córdoba",
+                            jsonStreets = "Gran Vía, Paseo de la Castellana, Calle de Alcalá, La Rambla, Paseo de Gracia, Calle Larios, Avenida Diagonal, Calle Serrano, Calle Mayor, Paseo de Colón"
+                        },new SeedAddress {
+                            jsonCountry = "Portugal",
+                            jsonCities = "Lisbon, Porto, Braga, Coimbra, Faro, Aveiro, Évora, Funchal, Guimarães, Setúbal",
+                            jsonStreets = "Avenida da Liberdade, Rua Augusta, Rua de Santa Catarina, Rua Garrett, Avenida dos Aliados, Rua da Prata, Rua do Ouro, Rua da Rosa, Rua do Carmo, Rua Direita"
+                        },
+
+                        new SeedAddress {
+                            jsonCountry = "Greece",
+                            jsonCities = "Athens, Thessaloniki, Patras, Heraklion, Larissa, Volos, Rhodes, Ioannina, Chania, Kavala",
+                            jsonStreets = "Ermou Street, Panepistimiou Street, Stadiou Street, Athinas Street, Syngrou Avenue, Patission Street, Mitropoleos Street, Leoforos Nikis, Adrianou Street, Venizelou Street"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Croatia",
+                            jsonCities = "Zagreb, Split, Rijeka, Osijek, Zadar, Pula, Dubrovnik, Šibenik, Varaždin, Slavonski Brod",
+                            jsonStreets = "Ilica, Radićeva Street, Tkalčićeva Street, Marmontova Street, Stradun, Ulica kralja Tomislava, Jelačić Square, Preradovićeva Street, Obala kneza Branimira, Kresimirova Street"
+                        },
+
+                        new SeedAddress {
+                            jsonCountry = "Turkey",
+                            jsonCities = "Istanbul, Ankara, Izmir, Bursa, Antalya, Konya, Gaziantep, Adana, Kayseri, Mersin",
+                            jsonStreets = "Istiklal Avenue, Bağdat Avenue, Halaskargazi Street, Cumhuriyet Avenue, Atatürk Boulevard, Kordonboyu, Abdi İpekçi Street, Barbaros Boulevard, Kennedy Avenue, Meclis-i Mebusan Street"
                         }
                 },
                 Names = new SeedNames
@@ -763,7 +794,8 @@ namespace Joby.Utilities.SeedGenerator
                         jsonCountry = "Australia",
                         jsonSights = "Sydney Opera House, Great Barrier Reef, Uluru, Bondi Beach, Blue Mountains",
                         jsonSightsDesc = "World-famous performance venue.||Coral reef teeming with life.||Sacred red rock monolith.||Popular surfing destination.||Scenic national park near Sydney."
-                    }
+                    },
+                    
                 },
                 Categories = new SeedCategory
                 {
