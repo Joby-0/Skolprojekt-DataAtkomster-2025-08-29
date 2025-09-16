@@ -31,3 +31,27 @@ public class UserCuDto
 
     public List<Guid> ReviewsId { get; set; }
 }
+
+public class ReviewCuDto
+{
+    public Guid? ReviewId { get; set; }
+    public int Rating { get; set; }
+    public string Comment { get; set; }
+    public DateTime Created_at { get; set; }
+    public Guid SightId { get; set; }
+    public Guid UserId { get; set; }
+
+    public ReviewCuDto() { }
+    public ReviewCuDto(IReview org)
+    {
+        ReviewId = org.ReviewId;
+        Rating = org.Rating;
+        Comment = org.Comment;
+        Created_at = org.Created_at;
+
+        SightId = org.Sight.SightId;
+        UserId = org.User.UserId;
+
+    }
+}
+

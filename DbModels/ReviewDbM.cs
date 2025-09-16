@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 using Joby.Utilities.SeedGenerator;
 using Models;
+using Models.DTO;
 
 namespace DbModels;
 
@@ -22,7 +23,7 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>, IEquatable<ReviewDbM>
     public Guid? SightId { get; set; }
 
     [JsonIgnore]
-    public Guid?UserId { get; set; }
+    public Guid? UserId { get; set; }
 
     [NotMapped]
     public override ISight Sight { get => SightDbM; set => new NotImplementedException(); }
@@ -47,11 +48,33 @@ public class ReviewDbM : Review, ISeed<ReviewDbM>, IEquatable<ReviewDbM>
         base.Seed(seedGenerator);
         return this;
     }
-        #region implementing IEquatable
+
+    #region implementing IEquatable
     public bool Equals(ReviewDbM other) => (other != null) && ((Rating, Comment, Created_at, User) ==
-        (other.Rating, other.Comment, other.Created_at,other.User));
+        (other.Rating, other.Comment, other.Created_at, other.User));
 
     public override bool Equals(object obj) => Equals(obj as ReviewDbM);
     public override int GetHashCode() => (Rating, Comment, Created_at, User).GetHashCode();
+    #endregion
+
+    #region Update from DTO
+    public ReviewDbM UpdateFromDTO(ReviewCuDto org)
+    {
+        Comment = org.Comment;
+        Created_at = org.Created_at;
+        Rating = org.Rating;
+        
+
+        return this;
+    }
+    #endregion
+
+    #region constructors
+    public ReviewDbM() { }
+    public ReviewDbM(ReviewCuDto org)
+    {
+        ReviewId = Guid.NewGuid();
+        UpdateFromDTO(org);
+    }
     #endregion
 }

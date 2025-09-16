@@ -61,10 +61,12 @@ builder.Services.AddInMemoryLogger();
 builder.Services.AddScoped<SightDbRepos>();
 builder.Services.AddScoped<AdminDbRepos>();
 builder.Services.AddScoped<UserDbRepos>();
+builder.Services.AddScoped<ReviewDbRepos>();
 
 builder.Services.AddScoped<ISightService, SightServiceDb>();
 builder.Services.AddScoped<IAdminService, AdminServiceDb>();
 builder.Services.AddScoped<IUserService, UserServiceDb>();
+builder.Services.AddScoped<IReviewService, ReviewServiceDb>();
 
 var app = builder.Build();
 
