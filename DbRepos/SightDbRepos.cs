@@ -208,9 +208,13 @@ public class SightDbRepos
 
     private async Task navProp_FriendCUdto_to_FriendDbM(SightCuDto itemDtoSrc, SightDbM itemDst)
     {
-        //update AddressDbM from itemDto.AddressId
-        itemDst.AddressDbM = await _dbContext.Addresses.FirstOrDefaultAsync(a => a.AddressId == itemDtoSrc.AddressId);
+        if (itemDtoSrc.SightId != null)
+            throw new ArgumentException($"{nameof(itemDtoSrc.SightId)} must be null when creating a new object");
 
+        //update AddressDbM from itemDto.AddressId
+        // itemDst.AddressDbM = await _dbContext.Addresses.FirstOrDefaultAsync(a => a.AddressId == itemDtoSrc.AddressId);
+        itemDst.AddressDbM = (itemDtoSrc.AddressId != null) ? await _dbContext.Addresses.FirstOrDefaultAsync(
+            a => (a.AddressId == itemDtoSrc.AddressId)) : null;
         //update ReviewsDbM from itemDto.ReviewsId list
         List<ReviewDbM> reviews = null;
         if (itemDtoSrc.ReviewsId != null)

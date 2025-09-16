@@ -89,35 +89,35 @@ public class SightController : Controller
 
 
 
-    [HttpGet()]
-    [ActionName("ReadItemDto")]
-    [ProducesResponseType(200, Type = typeof(SightCuDto))]
-    public async Task<IActionResult> ReadItemDto(string id = null)
-    {
-        try
-        {
-            var idArg = Guid.Parse(id);
+//     [HttpGet()]
+//     [ActionName("ReadItemDto")]
+//     [ProducesResponseType(200, Type = typeof(SightCuDto))]
+//     public async Task<IActionResult> ReadItemDto(string id = null)
+//     {
+//         try
+//         {
+//             var idArg = Guid.Parse(id);
 
-            _logger.LogInformation($"{nameof(ReadItemDto)}: {nameof(idArg)}: {idArg}");
+//             _logger.LogInformation($"{nameof(ReadItemDto)}: {nameof(idArg)}: {idArg}");
 
-            var item = await _service.ReadSightAsync(idArg, false);
-            if (item == null) throw new ArgumentException($"Item with id {id} does not exist");
+//             var item = await _service.ReadSightAsync(idArg, false);
+//             if (item == null) throw new ArgumentException($"Item with id {id} does not exist");
 
-            return Ok(
-                new ResponseItemDto<SightCuDto>()
-                {
-#if DEBUG
-                    ConnectionString = item.ConnectionString,
-#endif
-                    Item = new SightCuDto(item.Item)
-                });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"{nameof(ReadItemDto)}: {ex.Message}");
-            return BadRequest(ex.Message);
-        }
-    }
+//             return Ok(
+//                 new ResponseItemDto<SightCuDto>()
+//                 {
+// #if DEBUG
+//                     ConnectionString = item.ConnectionString,
+// #endif
+//                     Item = new SightCuDto(item.Item)
+//                 });
+//         }
+//         catch (Exception ex)
+//         {
+//             _logger.LogError($"{nameof(ReadItemDto)}: {ex.Message}");
+//             return BadRequest(ex.Message);
+//         }
+//     }
 
 
     [HttpPut("{id}")]
