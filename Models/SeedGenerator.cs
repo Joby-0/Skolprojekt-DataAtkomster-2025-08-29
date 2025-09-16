@@ -701,6 +701,61 @@ namespace Joby.Utilities.SeedGenerator
                             jsonCountry = "Turkey",
                             jsonCities = "Istanbul, Ankara, Izmir, Bursa, Antalya, Konya, Gaziantep, Adana, Kayseri, Mersin",
                             jsonStreets = "Istiklal Avenue, Bağdat Avenue, Halaskargazi Street, Cumhuriyet Avenue, Atatürk Boulevard, Kordonboyu, Abdi İpekçi Street, Barbaros Boulevard, Kennedy Avenue, Meclis-i Mebusan Street"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Brazil",
+                            jsonCities = "São Paulo, Rio de Janeiro, Brasília, Salvador, Fortaleza, Belo Horizonte, Curitiba, Manaus, Porto Alegre",
+                            jsonStreets = "Avenida Paulista, Rua Oscar Freire, Avenida Rio Branco, Rua 25 de Março, Avenida Atlântica, Rua das Flores, Rua XV de Novembro, Avenida Brasil"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "USA",
+                            jsonCities = "New York, Los Angeles, Chicago, Houston, Phoenix, Philadelphia, San Antonio, San Diego, Dallas, San Jose",
+                            jsonStreets = "Broadway, Wall Street, Fifth Avenue, Rodeo Drive, Main Street, Pennsylvania Avenue, Market Street, Sunset Boulevard, Michigan Avenue, Ocean Drive"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Colombia",
+                            jsonCities = "Bogotá, Medellín, Cali, Barranquilla, Cartagena, Cúcuta, Bucaramanga, Pereira, Santa Marta",
+                            jsonStreets = "Carrera 7, Calle 26, Avenida El Poblado, Carrera 43, Calle 10, Avenida Caracas, Calle 80, Carrera 15, Avenida Simon Bolivar"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "China",
+                            jsonCities = "Beijing, Shanghai, Guangzhou, Shenzhen, Chengdu, Hangzhou, Wuhan, Xi'an, Chongqing",
+                            jsonStreets = "Wangfujing Street, Nanjing Road, Beijing Road, Huaihai Road, Chunxi Road, Dongmen Street, Zhongshan Road, Yandang Road, Wangjing Street"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Japan",
+                            jsonCities = "Tokyo, Osaka, Yokohama, Nagoya, Sapporo, Fukuoka, Kyoto, Kawasaki, Hiroshima",
+                            jsonStreets = "Shinjuku Street, Omotesando, Ginza, Dotonbori, Chuo Dori, Tenjin Street, Kawaramachi Street, Motomachi, Hondori"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "India",
+                            jsonCities = "Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Kolkata, Pune, Jaipur, Ahmedabad",
+                            jsonStreets = "MG Road, Brigade Road, Marine Drive, Connaught Place, Anna Salai, Park Street, Linking Road, Residency Road, Jawaharlal Nehru Road"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "South Korea",
+                            jsonCities = "Seoul, Busan, Incheon, Daegu, Daejeon, Gwangju, Suwon, Ulsan, Changwon",
+                            jsonStreets = "Gangnam Street, Myeongdong, Dongdaemun, Seomyeon, Jungang-ro, Bujeon-ro, Dunsan-ro, Geumho-ro, Jangchung-ro"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Singapore",
+                            jsonCities = "Singapore",
+                            jsonStreets = "Orchard Road, Marina Bay Sands, Clarke Quay, Raffles Place, Bugis Street, Sentosa Gateway, Chinatown Street, Holland Road"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Thailand",
+                            jsonCities = "Bangkok, Chiang Mai, Phuket, Pattaya, Hat Yai, Khon Kaen, Udon Thani, Nakhon Ratchasima",
+                            jsonStreets = "Sukhumvit Road, Silom Road, Khao San Road, Ratchadaphisek Road, Thanon Phaya Thai, Charoen Krung Road, Phetchaburi Road"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Indonesia",
+                            jsonCities = "Jakarta, Surabaya, Bandung, Medan, Semarang, Makassar, Yogyakarta, Palembang",
+                            jsonStreets = "Jalan Sudirman, Jalan Thamrin, Jalan Malioboro, Jalan Gatot Subroto, Jalan Diponegoro, Jalan Ahmad Yani, Jalan Dr. Soetomo, Jalan Raya Darmo"
+                        },
+                        new SeedAddress {
+                            jsonCountry = "Malaysia",
+                            jsonCities = "Kuala Lumpur, George Town, Johor Bahru, Kota Kinabalu, Ipoh, Malacca, Petaling Jaya",
+                            jsonStreets = "Jalan Bukit Bintang, Jalan Ampang, Jalan Sultan Ismail, Lebuh Chulia, Jalan Tun Razak, Jalan Masjid India, Jalan Penang"
                         }
                 },
                 Names = new SeedNames

@@ -24,9 +24,9 @@ public class AdminDbRepos
         var seeder = new SeedGenerator();
 
         var users = seeder.ItemsToList<UserDbM>(nrOfItemsInt);
-        var reviews = seeder.ItemsToList<ReviewDbM>(nrOfItemsInt * 15);
-        var cities = seeder.UniqueItemsToList<CityDbM>(100);
-        var countries = seeder.UniqueItemsToList<CountryDbM>(25);
+        var reviews = seeder.ItemsToList<ReviewDbM>(nrOfItemsInt * 10);
+        var cities = seeder.UniqueItemsToList<CityDbM>(seeder.Next(100, nrOfItemsInt));
+        var countries = seeder.UniqueItemsToList<CountryDbM>(seeder.Next(5,nrOfItemsInt));
         var addresses = seeder.UniqueItemsToList<AddressDbM>(nrOfItemsInt);
         var sights = seeder.ItemsToList<SightDbM>(nrOfItemsInt);
 
