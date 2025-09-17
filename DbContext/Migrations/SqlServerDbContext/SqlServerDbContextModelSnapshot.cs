@@ -207,6 +207,43 @@ namespace DbContext.Migrations.SqlServerDbContext
                     b.ToTable("Users", "supusr");
                 });
 
+            modelBuilder.Entity("Models.DTO.GstUsrInfoDbDto", b =>
+                {
+                    b.Property<int>("NrSeededCities")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrSeededCountries")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrSeededReviews")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrSeededSights")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrSeededSightsNoReview")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrSeededUsers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrUnseededCities")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrUnseededCountries")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrUnseededSights")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NrUnseededUsers")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vwInfoDb", "gstusr");
+                });
+
             modelBuilder.Entity("CategoryDbMSightDbM", b =>
                 {
                     b.HasOne("DbModels.SightDbM", null)

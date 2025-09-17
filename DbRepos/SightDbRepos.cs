@@ -61,6 +61,12 @@ public class SightDbRepos
 
             .Skip(pageNumber * pageSize)
             .Take(pageSize)
+            .OrderBy(s => s.CategoryDbMs.FirstOrDefault())
+                .ThenBy(s => s.SightName)
+                    .ThenBy(s => s.Description)
+                        .ThenBy(s => s.AddressDbM.CityDbM.CountryDbM)
+                            .ThenBy(s => s.AddressDbM.CityDbM)
+                                .ThenByDescending(s => s.CategoryDbMs.FirstOrDefault())
             .ToListAsync<ISight>(),
 
             PageNr = pageNumber,

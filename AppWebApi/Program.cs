@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen(c =>
 #else
         Version = "v2.0",
 #endif
-        Description = "This is an API used in Johans's various software developer training courses."
+        Description = "This is an API used in Johans's Sight software developer training courses."
         + $"<br>DataSet: {builder.Configuration["DatabaseConnections:UseDataSetWithTag"]}"
         + $"<br>DefaultDataUser: {builder.Configuration["DatabaseConnections:DefaultDataUser"]}"
     });

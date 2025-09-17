@@ -6,6 +6,8 @@ using Configuration;
 using DbModels;
 using Microsoft.Extensions.Hosting.Internal;
 using DbContext.Extensions;
+using Models.DTO;
+using Models;
 
 namespace DbContext;
 
@@ -33,6 +35,10 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
     public DbSet<UserDbM> Users { get; set; }
 
     #endregion
+    #region model the Views
+    public DbSet<GstUsrInfoDbDto> InfoDbView { get; set; }
+
+    #endregion
 
     #region constructors
     public MainDbContext() { }
@@ -45,8 +51,14 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
     //Here we can modify the migration building
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        #region model the Views
+        modelBuilder.Entity<GstUsrInfoDbDto>().ToView("vwInfoDb", "gstusr").HasNoKey();
+       
+
+
+        #endregion
         #region override modelbuilder
-        
+
 
         #endregion
 

@@ -48,13 +48,13 @@ public class AdminController : Controller
     {
         try
         {
-            // _logger.LogInformation($"{nameof(Seed)}");
+            _logger.LogInformation($"{nameof(DbInfo)}");
 
             return Ok(await _service.DbInfo());
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(Seed)}: {ex.Message}");
+            _logger.LogError($"{nameof(DbInfo)}: {ex.Message}");
             return BadRequest(ex.Message);
         }
     }
@@ -67,14 +67,14 @@ public class AdminController : Controller
     {
         try
         {
-            _logger.LogInformation($"{nameof(Seed)}");
-            await _service.RemoveSeedAsync();
+            _logger.LogInformation($"{nameof(RemoveSeed)}");
+            var info = await _service.RemoveSeedAsync();
 
-            return Ok("Remove seeding completed successfully");
+            return Ok(info);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(Seed)}: {ex.Message}");
+            _logger.LogError($"{nameof(RemoveSeed)}: {ex.Message}");
             return BadRequest(ex.Message);
         }
     }

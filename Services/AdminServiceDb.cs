@@ -16,7 +16,7 @@ public class AdminServiceDb : IAdminService
 
     public Task<ResponseItemDto<GstUsrInfoAllDto>> DbInfo() => _repo.InfoAsync();
 
-    public Task RemoveSeedAsync() => _repo.RemoveSeedAsync();
+    public Task<GstUsrInfoDbDto> RemoveSeedAsync() => _repo.RemoveSeedAsync();
 
 
 

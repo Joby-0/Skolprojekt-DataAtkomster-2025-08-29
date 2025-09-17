@@ -93,7 +93,14 @@ public class ReviewDbRepos
 
         await _dbContext.SaveChangesAsync();
 
-        return null;
+        return new ResponseItemDto<IReview>()
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
+            Item = item
+        };
+        
     }
     public ReviewDbRepos(ILogger<ReviewDbRepos> logger, MainDbContext context)
     {

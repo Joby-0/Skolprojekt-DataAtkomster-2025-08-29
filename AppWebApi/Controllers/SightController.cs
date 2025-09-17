@@ -5,6 +5,10 @@ using Joby.Utilities.SeedGenerator;
 using Models;
 using Services;
 using Models.DTO;
+using System.Data.Common;
+
+using Microsoft.EntityFrameworkCore;
+using DbModels;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
@@ -19,7 +23,6 @@ public class SightController : Controller
     {
         _logger = logger;
         _service = service;
-
     }
 
     [HttpGet()]
@@ -37,6 +40,7 @@ public class SightController : Controller
             var sights = await _service.ReadSightsAsync(seededArg, flatArg, filter?.Trim().ToLower(), pageNrArg, pageSizeArg);
 
             return Ok(sights);
+
         }
         catch (Exception ex)
         {
@@ -89,35 +93,35 @@ public class SightController : Controller
 
 
 
-//     [HttpGet()]
-//     [ActionName("ReadItemDto")]
-//     [ProducesResponseType(200, Type = typeof(SightCuDto))]
-//     public async Task<IActionResult> ReadItemDto(string id = null)
-//     {
-//         try
-//         {
-//             var idArg = Guid.Parse(id);
+    //     [HttpGet()]
+    //     [ActionName("ReadItemDto")]
+    //     [ProducesResponseType(200, Type = typeof(SightCuDto))]
+    //     public async Task<IActionResult> ReadItemDto(string id = null)
+    //     {
+    //         try
+    //         {
+    //             var idArg = Guid.Parse(id);
 
-//             _logger.LogInformation($"{nameof(ReadItemDto)}: {nameof(idArg)}: {idArg}");
+    //             _logger.LogInformation($"{nameof(ReadItemDto)}: {nameof(idArg)}: {idArg}");
 
-//             var item = await _service.ReadSightAsync(idArg, false);
-//             if (item == null) throw new ArgumentException($"Item with id {id} does not exist");
+    //             var item = await _service.ReadSightAsync(idArg, false);
+    //             if (item == null) throw new ArgumentException($"Item with id {id} does not exist");
 
-//             return Ok(
-//                 new ResponseItemDto<SightCuDto>()
-//                 {
-// #if DEBUG
-//                     ConnectionString = item.ConnectionString,
-// #endif
-//                     Item = new SightCuDto(item.Item)
-//                 });
-//         }
-//         catch (Exception ex)
-//         {
-//             _logger.LogError($"{nameof(ReadItemDto)}: {ex.Message}");
-//             return BadRequest(ex.Message);
-//         }
-//     }
+    //             return Ok(
+    //                 new ResponseItemDto<SightCuDto>()
+    //                 {
+    // #if DEBUG
+    //                     ConnectionString = item.ConnectionString,
+    // #endif
+    //                     Item = new SightCuDto(item.Item)
+    //                 });
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             _logger.LogError($"{nameof(ReadItemDto)}: {ex.Message}");
+    //             return BadRequest(ex.Message);
+    //         }
+    //     }
 
 
     [HttpPut("{id}")]
@@ -150,7 +154,7 @@ public class SightController : Controller
         {
 
             var sight = await _service.CreateSightAsync(sightCuDto);
-            
+
             return Ok(sight);
         }
         catch (Exception ex)
