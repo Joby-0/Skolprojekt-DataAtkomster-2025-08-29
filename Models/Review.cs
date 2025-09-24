@@ -18,7 +18,7 @@ public class Review : IReview, ISeed<Review>
         Seeded = true;
         ReviewId = Guid.NewGuid();
         Rating = seedGenerator.Next(0, 6);
-        Comment = seedGenerator.RandomComment();
+        Comment = $"{seedGenerator.RandomComment()}, ger den en {Rating}";
         Created_at = seedGenerator.DateAndTime(1979, 2026);
         return this;
     }

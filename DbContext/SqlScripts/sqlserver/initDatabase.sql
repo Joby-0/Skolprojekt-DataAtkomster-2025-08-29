@@ -34,7 +34,8 @@ CREATE OR ALTER VIEW supusr.vwAllSights AS
     JOIN supusr.Countries co ON ci.CountryId = co.CountryId
     GROUP BY s.SightName, a.Street, ci.CityName, co.CountryName, c.CategoryName
 
-    
+
+GO
 
 
 --create the DeleteAll procedure

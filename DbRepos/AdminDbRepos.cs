@@ -24,6 +24,7 @@ public class AdminDbRepos
 
     public async Task SeedAsync(string nrOfItems)
     {
+        await RemoveSeedAsync();
         int nrOfItemsInt = int.Parse(nrOfItems);
         var seeder = new SeedGenerator();
 
