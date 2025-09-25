@@ -22,7 +22,7 @@ public class AdminDbRepos
     // private Encryptions _encryptions;
     private readonly MainDbContext _dbContext;
 
-    public async Task SeedAsync(string nrOfItems)
+    public async Task<ResponseItemDto<GstUsrInfoAllDto>> SeedAsync(string nrOfItems)
     {
         await RemoveSeedAsync();
         int nrOfItemsInt = int.Parse(nrOfItems);
@@ -61,6 +61,7 @@ public class AdminDbRepos
         _dbContext.Sights.AddRange(sights);
 
         await _dbContext.SaveChangesAsync();
+        return await InfoAsync();
     }
 
 

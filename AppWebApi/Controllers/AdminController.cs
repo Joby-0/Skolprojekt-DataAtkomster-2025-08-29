@@ -30,9 +30,9 @@ public class AdminController : Controller
         try
         {
             _logger.LogInformation($"{nameof(Seed)}");
-            await _service.SeedAsync(nrOfItems);
+            var item = await _service.SeedAsync(nrOfItems);
 
-            return Ok("Seeding completed successfully");
+            return Ok(item);
         }
         catch (Exception ex)
         {
