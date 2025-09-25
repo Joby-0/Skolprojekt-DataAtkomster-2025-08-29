@@ -48,7 +48,29 @@ public class SightController : Controller
             return BadRequest(ex.Message);
         }
     }
+    [HttpGet()]
+    [ActionName("ReadDto")]
+    [ProducesResponseType(200, Type = typeof(ResponsePageDto<SighListDto>))]
+    public async Task<IActionResult> AllSightsDto(string seeded = "true", string flat = "true", string filter = null, string pageNumber = "0", string pageSize = "10")
+    {
+        try
+        {
+            bool seededArg = bool.Parse(seeded);
+            bool flatArg = bool.Parse(flat);
+            int pageNrArg = int.Parse(pageNumber);
+            int pageSizeArg = int.Parse(pageSize);
+            _logger.LogInformation($"{nameof(AllSights)}");
+            var sights = await _service.ReadSightsAsyncDto(seededArg, flatArg, filter?.Trim().ToLower(), pageNrArg, pageSizeArg);
 
+            return Ok(sights);
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{nameof(AllSights)}: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
     [HttpGet("{Id}")]
     [ActionName("ReadItem")]
     [ProducesResponseType(200, Type = typeof(ResponseItemDto<ISight>))]

@@ -7,6 +7,7 @@ public interface ISightService
 {
     public Task<ResponseItemDto<ISight>> ReadSightAsync(Guid id, bool flat);
     public Task<ResponsePageDto<ISight>> ReadSightsAsync(bool seeded, bool flat, string filter, int pageNumber, int pageSize);
+    public Task<ResponsePageDto<SighListDto>> ReadSightsAsyncDto(bool seeded, bool flat, string filter, int pageNumber, int pageSize);
 
     public Task<ResponseItemDto<ISight>> DeleteSightAsync(Guid id);
     public Task<ResponseItemDto<ISight>> UpdateSightAsync(SightCuDto sightCuDto);

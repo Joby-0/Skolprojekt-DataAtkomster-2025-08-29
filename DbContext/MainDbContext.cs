@@ -37,6 +37,7 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
     #endregion
     #region model the Views
     public DbSet<GstUsrInfoDbDto> InfoDbView { get; set; }
+    public DbSet<SighListDto> sighListView { get; set; }
 
     #endregion
 
@@ -53,6 +54,8 @@ public class MainDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         #region model the Views
         modelBuilder.Entity<GstUsrInfoDbDto>().ToView("vwInfoDb", "gstusr").HasNoKey();
+        modelBuilder.Entity<SighListDto>().ToView("vwAllSights", "supusr").HasNoKey();
+
        
 
 

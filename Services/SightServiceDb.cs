@@ -24,6 +24,8 @@ public class SightServiceDb : ISightService
 
     public Task<ResponseItemDto<ISight>> CreateSightAsync(SightCuDto sightCuDto) => _repo.CreateSightAsync(sightCuDto);
 
+    public Task<ResponsePageDto<SighListDto>> ReadSightsAsyncDto(bool seeded, bool flat, string filter, int pageNumber, int pageSize) => _repo.ReadSightsAsyncDto(seeded, flat, filter, pageNumber, pageSize);
+
 
     #region constructors
     public SightServiceDb(SightDbRepos repo)

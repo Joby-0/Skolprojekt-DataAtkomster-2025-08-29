@@ -26,13 +26,12 @@ CREATE OR ALTER VIEW gstusr.vwInfoDb AS
 GO
 
 CREATE OR ALTER VIEW supusr.vwAllSights AS
-    SELECT  s.SightName, c.CategoryName, a.Street, ci.CityName, co.CountryName From supusr.Sights s
-    JOIN supusr.CategoryDbMSightDbM cs ON s.SightId = cs.SightDbMSightId
-    JOIN supusr.Categories c ON cs.SightId = c.CategoryId
+    SELECT s.SightId AS SightId,  s.SightName AS SightName, a.Street AS Street, ci.CityName AS City, co.CountryName AS Country From supusr.Sights s
+
     JOIN supusr.Addresses a ON s.AddressId = a.AddressId
     JOIN supusr.Cities ci ON a.CityId = ci.CityId
     JOIN supusr.Countries co ON ci.CountryId = co.CountryId
-    GROUP BY s.SightName, a.Street, ci.CityName, co.CountryName, c.CategoryName
+    GROUP BY s.SightName, a.Street, ci.CityName, co.CountryName, s.SightId
 
 
 GO

@@ -76,7 +76,48 @@ public class SightDbRepos
         };
         return ret;
     }
+    public async Task<ResponsePageDto<SighListDto>> ReadSightsAsyncDto(bool seeded, bool flat, string filter, int pageNumber, int pageSize)
+    {
+        filter ??= "";
+        IQueryable<SighListDto> query;
 
+
+        query = _dbContext.sighListView.AsNoTracking();
+
+
+
+        var ret = new ResponsePageDto<SighListDto>()
+        {
+#if DEBUG
+            ConnectionString = _dbContext.dbConnection,
+#endif
+
+            DbItemsCount = await query
+
+            // .Where(i =>
+            //   i.Street.ToLower().Contains(filter)
+            //  || i.City.ToLower().Contains(filter)
+            //  || i.Country.ToLower().Contains(filter))
+             .CountAsync(),
+
+            PageItems = await query
+
+            // .Where(i => 
+            //   i.Street.ToLower().Contains(filter)
+            //  || i.City.ToLower().Contains(filter)
+            //  || i.Country.ToLower().Contains(filter))
+
+            .Skip(pageNumber * pageSize)
+            .Take(pageSize)
+            .ToListAsync<SighListDto>(),
+
+            PageNr = pageNumber,
+            PageSize = pageSize
+
+
+        };
+        return ret;
+    }
     public async Task<ResponseItemDto<ISight>> ReadSightAsync(Guid id, bool flat)
     {
         IQueryable<SightDbM> query;
@@ -139,7 +180,7 @@ public class SightDbRepos
         .FirstOrDefaultAsync<SightDbM>();
 
         item.UpdateFromDTO(sightCuDto);
-        
+
         await navProp_FriendCUdto_to_FriendDbM(sightCuDto, item);
 
         _dbContext.Sights.Update(item);
@@ -214,10 +255,10 @@ public class SightDbRepos
 
     private async Task navProp_FriendCUdto_to_FriendDbM(SightCuDto itemDtoSrc, SightDbM itemDst)
     {
-        
+
 
         //update AddressDbM from itemDto.AddressId
-        
+
         itemDst.AddressDbM = (itemDtoSrc.AddressId != null) ? await _dbContext.Addresses.FirstOrDefaultAsync(
             a => (a.AddressId == itemDtoSrc.AddressId)) : null;
         //update ReviewsDbM from itemDto.ReviewsId list
